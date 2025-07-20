@@ -21,7 +21,7 @@ const accountsSlice = createSlice({
   name: "accounts",
   initialState,
   reducers: {
-    addAccount: (state, action: PayloadAction<{ id: string, name: string, balance?: number }>) => {
+    addAccount: (state, action: PayloadAction<Account>) => {
       state.accounts[action.payload.id] = {
         id: action.payload.id,
         name: action.payload.name,
