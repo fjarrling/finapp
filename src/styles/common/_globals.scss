@@ -1,0 +1,109 @@
+@use '../helpers' as *;
+
+html {
+  &.is-lock {
+    overflow: hidden;
+  }
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-white);
+  font-family: var(--font-family-base);
+  font-size: rem(16);
+  line-height: 1.5;
+  color: var(--color-black);
+  font-weight: 400;
+}
+
+main {
+  padding-top: var(--header-height);
+  flex-grow: 1;
+}
+
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+}
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3 {
+}
+
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+}
+
+h1 {
+}
+
+h1,
+.h1 {
+}
+
+h2,
+.h2 {
+}
+
+h3,
+.h3 {
+}
+
+h4,
+.h4 {
+}
+
+h5,
+.h5 {
+}
+
+h6,
+.h6 {
+}
+
+p {
+  --paragraphMarginBottom: #{rem(24)};
+}
+
+a,
+button,
+label,
+input,
+textarea,
+select,
+svg * {
+  transition-duration: var(--transition-duration);
+}
+
+a {
+  color: inherit;
+
+  &[class] {
+    text-decoration: none;
+  }
+}
+
+:focus-visible {
+  outline: rem(2) dashed var(--color-White);
+  outline-offset: rem(4);
+  transition-duration: 0s !important;
+}
