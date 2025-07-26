@@ -27,7 +27,7 @@ const transactionsSlice = createSlice({
     addTransaction: (state, action: PayloadAction<Transaction>) => {
       state.transactions[action.payload.id] = action.payload
     },
-    removeTransaction: (state, action: PayloadAction<{ id: string }>) => {
+    removeTransaction: (state, action: PayloadAction<{ id: TransactionId }>) => {
       delete state.transactions[action.payload.id]
     },
     updateTransaction: (state, action: PayloadAction<{
@@ -39,11 +39,11 @@ const transactionsSlice = createSlice({
       categoryId?: string
     }>) => {
       const {id, ...changes} = action.payload;
-      const currentTransaction = state.transactions[id];
-      if (!currentTransaction) return;
+      const targetTransaction = state.transactions[id];
+      if (!targetTransaction) return;
 
       state.transactions[id] = {
-        ...currentTransaction,
+        ...targetTransaction,
         ...changes,
       };
     },
