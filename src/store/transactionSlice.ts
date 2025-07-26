@@ -7,6 +7,7 @@ export interface Transaction {
   amount: number;
   description?: string | undefined;
   date: string
+  categoryId?: string
 }
 
 type TransactionId = string
@@ -34,7 +35,8 @@ const transactionsSlice = createSlice({
       accountId?: string,
       amount?: number,
       description?: string,
-      date?: string
+      date?: string,
+      categoryId?: string
     }>) => {
       const {id, ...changes} = action.payload;
       const currentTransaction = state.transactions[id];
