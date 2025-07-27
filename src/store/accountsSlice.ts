@@ -5,6 +5,7 @@ export interface Account {
   id: AccountId;
   name: string;
   balance: number;
+  description?: string;
 }
 
 type AccountId = string
@@ -14,7 +15,13 @@ interface AccountsState {
 }
 
 const initialState: AccountsState = {
-  accounts: {}
+  accounts: {
+    't-bank': {
+      id: 't-bank',
+      name: 'T-bank',
+      balance: 1235,
+    }
+  }
 }
 
 const accountsSlice = createSlice({
@@ -22,26 +29,36 @@ const accountsSlice = createSlice({
   initialState,
   reducers: {
     addAccount: (state, action: PayloadAction<Account>) => {
-      state.accounts[action.payload.id] = {
-        id: action.payload.id,
-        name: action.payload.name,
-        balance: action.payload.balance || 0
-      }
+      state.accounts[action.payload.id] = action.payload;
     },
-    removeAccount: (state, action: PayloadAction<{ id: string }>) => {
+    removeAccount: (state, action: PayloadAction<{ id: AccountId }>) => {
       delete state.accounts[action.payload.id]
     },
-    updateBalance: (state, action: PayloadAction<{ id: string, amount: number }>) => {
+    updateAccount: (state, action: PayloadAction<{
+      id: AccountId,
+      name?: string;
+      balance?: number;
+      description?: string;
+    }>) => {
+      const {id, ...changes} = action.payload;
+      const targetAccount = state.accounts[id];
+      if (!targetAccount) return
+      state.accounts[id] = {
+        ...targetAccount,
+        ...changes,
+      }
+    },
+    updateBalance: (state, action: PayloadAction<{ id: AccountId, amount: number }>) => {
       if (state.accounts[action.payload.id]) {
         state.accounts[action.payload.id].balance = action.payload.amount;
       }
     },
-    changeBalance: (state, action: PayloadAction<{ id: string; delta: number }>) => {
+    changeBalance: (state, action: PayloadAction<{ id: AccountId; delta: number }>) => {
       if (state.accounts[action.payload.id]) {
         state.accounts[action.payload.id].balance += action.payload.delta;
       }
     },
-    renameAccount: (state, action: PayloadAction<{ id: string; name: string }>) => {
+    renameAccount: (state, action: PayloadAction<{ id: AccountId; name: string }>) => {
       if (state.accounts[action.payload.id]) {
         state.accounts[action.payload.id].name = action.payload.name;
       }

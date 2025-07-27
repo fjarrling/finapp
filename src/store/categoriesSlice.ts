@@ -20,29 +20,7 @@ const initialState: CategoriesState = {
   categories: {}
 }
 
-const defaultCategories: Record<CategoryId, Category> = {
-  'income-salary': {
-    id: 'income-salary',
-    name: 'Зарплата',
-    type: 'income',
-    description: 'Основной доход'
-  },
-  'income-freelance': {
-    id: 'income-freelance',
-    name: 'Фриланс',
-    type: 'income'
-  },
-  'expense-food': {
-    id: 'expense-food',
-    name: 'Еда',
-    type: 'expense'
-  },
-  'expense-transport': {
-    id: 'expense-transport',
-    name: 'Транспорт',
-    type: 'expense'
-  }
-}
+
 
 const categoriesSlice = createSlice({
     name: 'categories',
@@ -68,11 +46,7 @@ const categoriesSlice = createSlice({
           ...changes
         }
       },
-      loadDefaultCategories: (state) => {
-        if (Object.keys(state.categories).length === 0) {
-          state.categories = {...defaultCategories}
-        }
-      }
+
     }
   }
 )
@@ -98,5 +72,5 @@ export const selectExpenseCategories = createSelector(
   (categories) => categories.filter(category => category.type === 'expense')
 )
 
-export const {addCategory, removeCategory, updateCategory, loadDefaultCategories} = categoriesSlice.actions
+export const {addCategory, removeCategory, updateCategory} = categoriesSlice.actions
 export default categoriesSlice.reducer

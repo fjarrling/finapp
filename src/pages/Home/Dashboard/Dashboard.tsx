@@ -39,7 +39,8 @@ const Dashboard = () => {
               <DropdownMenuItem onClick={() => handleSelectAccount('total')}>
                 Total Balance
               </DropdownMenuItem>
-              <DropdownMenuSeparator/>
+              {accounts.length ? <DropdownMenuSeparator/> : null}
+
               {
                 accounts.map(account => (
                   <DropdownMenuItem key={account.id} onClick={() => handleSelectAccount(account)}>
@@ -49,7 +50,6 @@ const Dashboard = () => {
               }
             </DropdownMenuContent>
           </DropdownMenu>
-          <br/>
           <div>
             ${getDisplayBalance()}
           </div>
