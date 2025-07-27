@@ -1,4 +1,3 @@
-import styles from './Header.module.scss'
 import {NavLink} from "react-router";
 import {
   NavigationMenu,
@@ -15,14 +14,14 @@ const Header = () => {
 
 
   return (
-    <header className={styles.header}>
-      <div className={'container'}>
-        <div className={styles.headerInner}>
-          <NavLink className={styles.headerLogo} to='/'>
+    <header className='w-full border-b'>
+      <div className='container'>
+        <div className='flex items-center justify-between py-5'>
+          <NavLink  to='/'>
             Finapp
           </NavLink>
           <NavigationMenu>
-            <NavigationMenuList className={styles.headerMenuList}>
+            <NavigationMenuList className='flex items-center'>
               <NavigationMenuItem>
                 <NavigationMenuLink asChild={true}>
                   <NavLink to='/'>

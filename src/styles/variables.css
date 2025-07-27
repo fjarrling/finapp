@@ -1,0 +1,9 @@
+
+:root {
+  --font-family-base: 'Poppins', sans-serif;
+
+  --container-width: 100rem;
+  --container-padding-x: 2.5rem;
+
+  --transition-duration: 0.3s;
+}
