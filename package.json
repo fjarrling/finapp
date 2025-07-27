@@ -11,6 +11,7 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@radix-ui/react-dropdown-menu": "^2.1.15",
     "@radix-ui/react-navigation-menu": "^1.2.13",
     "@reduxjs/toolkit": "^2.8.2",
     "@tailwindcss/vite": "^4.1.11",

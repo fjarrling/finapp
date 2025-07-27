@@ -1,8 +1,8 @@
-import {createSlice, type PayloadAction} from '@reduxjs/toolkit'
+import {createSelector, createSlice, type PayloadAction} from '@reduxjs/toolkit'
 import type {RootState} from '@/store/store';
 
 export interface Account {
-  id: string;
+  id: AccountId;
   name: string;
   balance: number;
 }
@@ -49,10 +49,12 @@ const accountsSlice = createSlice({
   }
 })
 
-export const selectAccounts = (state: RootState) => state.accounts.accounts;
+export const selectAccountsMap = (state: RootState) => state.accounts.accounts;
 
-export const selectAccountsArray = (state: RootState) =>
-  Object.values(state.accounts.accounts);
+export const selectAllAccounts = createSelector(
+  (state: RootState) => state.accounts.accounts,
+  (accounts) => Object.values(accounts)
+)
 
 export const selectAccountById = (id: string) => (state: RootState) =>
   state.accounts.accounts[id];
@@ -62,6 +64,12 @@ export const selectAccountBalance = (id: string) => (state: RootState) =>
 
 export const selectAccountName = (id: string) => (state: RootState) =>
   state.accounts.accounts[id]?.name;
+
+export const selectTotalBalance = createSelector(
+  selectAllAccounts,
+  (accounts) =>
+    accounts.reduce((sum, account) => sum + account.balance, 0)
+)
 
 export const {addAccount, removeAccount, updateBalance, renameAccount, changeBalance} = accountsSlice.actions;
 export default accountsSlice.reducer;

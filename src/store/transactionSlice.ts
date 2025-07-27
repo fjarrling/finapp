@@ -1,4 +1,4 @@
-import {createSlice, type PayloadAction} from '@reduxjs/toolkit'
+import {createSelector, createSlice, type PayloadAction} from '@reduxjs/toolkit'
 import {type RootState} from '@/store/store';
 
 export interface Transaction {
@@ -53,14 +53,22 @@ const transactionsSlice = createSlice({
 export const selectTransactionsMap = (state: RootState) =>
   state.transactions.transactions;
 
-export const selectAllTransactions = (state: RootState): Transaction[] =>
-  Object.values(state.transactions.transactions);
+
+export const selectAllTransactions = createSelector(
+  (state: RootState) => state.transactions.transactions,
+  (transactions) => Object.values(transactions)
+)
 
 export const selectTransactionById = (state: RootState, id: string): Transaction | undefined =>
   state.transactions.transactions[id];
 
-export const selectTransactionsByAccountId = (state: RootState, accountId: string): Transaction[] =>
-  Object.values(state.transactions.transactions).filter(t => t.accountId === accountId);
+
+export const selectTransactionsByAccountId = createSelector(
+  selectAllTransactions,
+  (accountId: string) => accountId,
+  (transactions, accountId) =>
+    transactions.filter(transaction => transaction.accountId === accountId)
+)
 
 export const {addTransaction, removeTransaction, updateTransaction} = transactionsSlice.actions;
 export default transactionsSlice.reducer;

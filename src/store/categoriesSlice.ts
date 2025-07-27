@@ -1,4 +1,4 @@
-import {createSlice, type PayloadAction} from "@reduxjs/toolkit";
+import {createSelector, createSlice, type PayloadAction} from "@reduxjs/toolkit";
 import {type RootState} from "@/store/store.ts";
 
 type CategoryType = 'income' | 'expense'
@@ -20,7 +20,7 @@ const initialState: CategoriesState = {
   categories: {}
 }
 
-const defaultCategories: Record<string, Category> = {
+const defaultCategories: Record<CategoryId, Category> = {
   'income-salary': {
     id: 'income-salary',
     name: 'Зарплата',
@@ -80,20 +80,23 @@ const categoriesSlice = createSlice({
 export const selectCategoriesMap = (state: RootState) =>
   state.categories.categories
 
-export const selectAllCategories = (state: RootState): Category[] =>
-  Object.values(state.categories.categories)
+export const selectAllCategories = createSelector(
+  (state: RootState) => state.categories.categories,
+  (categories) => Object.values(categories)
+)
 
 export const selectCategoryById = (state: RootState, id: CategoryId) =>
   state.categories.categories[id]
 
-export const selectCategoriesByType = (state: RootState, type: CategoryType): Category[] =>
-  Object.values(state.categories.categories).filter(category => category.type === type)
+export const selectIncomeCategories = createSelector(
+  selectAllCategories,
+  (categories) => categories.filter(category => category.type === 'income')
+)
 
-export const selectIncomeCategories = (state: RootState): Category[] =>
-  selectCategoriesByType(state, 'income')
-
-export const selectExpenseCategories = (state: RootState): Category[] =>
-  selectCategoriesByType(state, 'expense')
+export const selectExpenseCategories = createSelector(
+  selectAllCategories,
+  (categories) => categories.filter(category => category.type === 'expense')
+)
 
 export const {addCategory, removeCategory, updateCategory, loadDefaultCategories} = categoriesSlice.actions
 export default categoriesSlice.reducer
