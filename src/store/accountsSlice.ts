@@ -1,10 +1,18 @@
 import {createSelector, createSlice, type PayloadAction} from '@reduxjs/toolkit'
 import type {RootState} from '@/store/store';
 
+export const CURRENCIES = ["RUB", "USD", "EUR"] as const;
+
+export type Currency = typeof CURRENCIES[number];
+
+// TODO: вынести отдельно в конфиг валюты
+// TODO: Переосмыслить баланс, сделать чтобы баланс высчитывался на основе массива транзакций.
+
 export interface Account {
   id: AccountId;
   name: string;
   balance: number;
+  currency: Currency;
   description?: string;
 }
 
@@ -20,6 +28,7 @@ const initialState: AccountsState = {
       id: 't-bank',
       name: 'T-bank',
       balance: 1235,
+      currency: 'RUB',
     }
   }
 }
@@ -38,6 +47,7 @@ const accountsSlice = createSlice({
       id: AccountId,
       name?: string;
       balance?: number;
+      currency?: Currency;
       description?: string;
     }>) => {
       const {id, ...changes} = action.payload;
@@ -63,6 +73,11 @@ const accountsSlice = createSlice({
         state.accounts[action.payload.id].name = action.payload.name;
       }
     },
+    changeCurrency: (state, action: PayloadAction<{ id: AccountId; currency: Currency }>) => {
+      if (state.accounts[action.payload.id]) {
+        state.accounts[action.payload.id].currency = action.payload.currency;
+      }
+    },
   }
 })
 
@@ -82,11 +97,47 @@ export const selectAccountBalance = (id: string) => (state: RootState) =>
 export const selectAccountName = (id: string) => (state: RootState) =>
   state.accounts.accounts[id]?.name;
 
+export const selectAccountCurrency = (id: string) => (state: RootState) =>
+  state.accounts.accounts[id]?.currency;
+
+export const selectAccountsByCurrency = createSelector(
+  selectAllAccounts,
+  (accounts) =>
+    accounts.reduce((acc, account) => {
+      if (!acc[account.currency]) {
+        acc[account.currency] = [];
+      }
+      acc[account.currency].push(account);
+      return acc;
+    }, {} as Record<Currency, Account[]>)
+)
+
+export const selectTotalBalanceByCurrency = createSelector(
+  selectAllAccounts,
+  (accounts) =>
+    accounts.reduce((acc, account) => {
+      if (!acc[account.currency]) {
+        acc[account.currency] = 0;
+      }
+      acc[account.currency] += account.balance;
+      return acc;
+    }, {} as Record<Currency, number>)
+)
+
 export const selectTotalBalance = createSelector(
   selectAllAccounts,
   (accounts) =>
     accounts.reduce((sum, account) => sum + account.balance, 0)
 )
 
-export const {addAccount, removeAccount, updateBalance, renameAccount, changeBalance} = accountsSlice.actions;
+export const {
+  addAccount,
+  removeAccount,
+  updateAccount,
+  updateBalance,
+  renameAccount,
+  changeBalance,
+  changeCurrency
+} = accountsSlice.actions;
+
 export default accountsSlice.reducer;
