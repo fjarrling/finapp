@@ -23,14 +23,7 @@ interface AccountsState {
 }
 
 const initialState: AccountsState = {
-  accounts: {
-    't-bank': {
-      id: 't-bank',
-      name: 'T-bank',
-      balance: 1235,
-      currency: 'RUB',
-    }
-  }
+  accounts: {}
 }
 
 const accountsSlice = createSlice({
