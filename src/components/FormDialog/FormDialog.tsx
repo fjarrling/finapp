@@ -1,23 +1,25 @@
-import {Dialog, DialogContent, DialogTrigger, DialogTitle} from "@/components/ui/dialog";
+import {Dialog, DialogContent, DialogTrigger, DialogTitle, DialogDescription} from "@/components/ui/dialog";
 import {Button} from "@/components/ui/button";
 import React, {useState} from "react";
 
 
-type FormDialogProps = {
+type FormDialogProps<P> = {
   title: string;
   triggerText?: string;
-  Form: React.FC<{closeDialog?: () => void}>
+  Form: React.ComponentType<P>;
+  formProps?: P;
+  closeDialog?: () => void;
 };
 
-function FormDialog(props: FormDialogProps) {
 
-  const {title, triggerText, Form} = props;
+function FormDialog<P>(props: FormDialogProps<P>) {
+  const {title, triggerText, Form, formProps = {} as P} = props;
 
   const [open, setOpen] = useState(false);
 
   const closeDialog = () => {
     setOpen(false);
-  };
+  }
 
 
   return (
@@ -29,7 +31,10 @@ function FormDialog(props: FormDialogProps) {
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>{title}</DialogTitle>
-        <Form closeDialog={closeDialog}/>
+        <Form  {...formProps} closeDialog={closeDialog}/>
+        <DialogDescription className="sr-only">
+          Form: {title}. Please fill out the required fields and submit.
+        </DialogDescription>
       </DialogContent>
     </Dialog>
   );
