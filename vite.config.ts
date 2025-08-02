@@ -11,9 +11,5 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
-  },
-  test: {
-    globals: true,      // <- включает глобальные describe/it/expect
-    environment: 'jsdom' // <- если нужно тестировать React компоненты
   }
 })
