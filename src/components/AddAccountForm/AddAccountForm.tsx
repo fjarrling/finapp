@@ -26,9 +26,10 @@ const createAccountSchema = z.object({
 })
 
 type CreateAccountFormData = z.infer<typeof createAccountSchema>
+type FormProps = { closeDialog?: () => void; };
 
 
-export function AddAccountForm() {
+const AddAccountForm = ({closeDialog}: FormProps) => {
   const id = useId()
   const dispatch = useAppDispatch()
 
@@ -55,6 +56,8 @@ export function AddAccountForm() {
     console.log('Form data:', data)
     console.log('Account for Redux:', accountForRedux)
     dispatch(addAccount(accountForRedux))
+    if (closeDialog)
+      closeDialog()
   }
 
   return (
