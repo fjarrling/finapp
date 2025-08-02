@@ -1,7 +1,7 @@
 import {Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card.tsx";
 import type {Account} from "@/store/accountsSlice.ts";
 import FormDialog from "@/components/FormDialog";
-import AddAccountForm from "@/components/AddAccountForm";
+import EditAccountForm from "@/components/EditAccountForm";
 
 interface AccountCardProps {
   account: Account;
@@ -15,7 +15,11 @@ const AccountCard = ({account}: AccountCardProps) => {
         <CardTitle className='text-3xl'>{account.name}</CardTitle>
         <CardDescription>{account.description}</CardDescription>
         <CardAction>
-          <FormDialog Form={AddAccountForm} title="Edit Account"/>
+          <FormDialog
+            formProps={{account}}
+            Form={EditAccountForm}
+            title="Edit Account"
+          />
         </CardAction>
       </CardHeader>
       <CardContent className='mt-auto'>
