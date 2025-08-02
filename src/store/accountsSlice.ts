@@ -16,7 +16,7 @@ export interface Account {
   description?: string;
 }
 
-type AccountId = string
+export type AccountId = string
 
 interface AccountsState {
   accounts: Record<AccountId, Account>;
