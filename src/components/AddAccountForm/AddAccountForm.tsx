@@ -45,7 +45,7 @@ const AddAccountForm = ({closeDialog}: FormProps) => {
 
 
   function onSubmit(data: CreateAccountFormData) {
-    const accountForRedux = {
+    const Payload = {
       id: id,
       name: data.name,
       balance: parseFloat(data.balance),
@@ -53,9 +53,11 @@ const AddAccountForm = ({closeDialog}: FormProps) => {
       description: data.description,
     }
 
-    console.log('Form data:', data)
-    console.log('Account for Redux:', accountForRedux)
-    dispatch(addAccount(accountForRedux))
+    // console.log('Form data:', data)
+    // console.log('Payload:', Payload)
+
+    dispatch(addAccount(Payload))
+
     if (closeDialog)
       closeDialog()
   }
