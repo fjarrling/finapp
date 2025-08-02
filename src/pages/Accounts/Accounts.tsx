@@ -18,7 +18,7 @@ const Accounts = () => {
             </h1>
             <AddAccountDialog/>
           </div>
-          <div className='w-full grid grid-cols-3 gap-4 mb-4'>
+          <div className='w-full grid grid-cols-2 gap-4 mb-4 lg:grid-cols-3'>
             {
               accounts.map((account) => (
                 <AccountCard key={account.id} account={account}/>

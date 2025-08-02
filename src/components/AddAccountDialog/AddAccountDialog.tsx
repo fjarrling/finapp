@@ -7,7 +7,7 @@ const AddAccountDialog = () => {
   return (
     <Dialog>
       <DialogTrigger asChild={true}>
-        <Button>
+        <Button className='cursor-pointer'>
           + Add Account
         </Button>
       </DialogTrigger>

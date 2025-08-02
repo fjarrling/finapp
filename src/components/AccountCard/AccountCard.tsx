@@ -14,14 +14,14 @@ const AccountCard = ({account}: AccountCardProps) => {
         <CardTitle className='text-3xl'>{account.name}</CardTitle>
         <CardDescription>{account.description}</CardDescription>
         <CardAction>
-          <Button>
+          <Button className='cursor-pointer'>
             Edit Account
           </Button>
         </CardAction>
       </CardHeader>
-      <CardContent>
+      <CardContent className='mt-auto'>
         <div className='text-sm text-gray-500 mb-1'>Balance:</div>
-        <span className='text-2xl font-medium'>$ {account.balance}</span>
+        <span className='text-2xl font-medium'>{account.currency} {account.balance}</span>
       </CardContent>
     </Card>
   );
