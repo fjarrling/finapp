@@ -1,6 +1,5 @@
 import {zodResolver} from "@hookform/resolvers/zod"
 import {useForm} from "react-hook-form"
-import {z} from "zod"
 import {Button} from "@/components/ui/button"
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
 import {Input} from "@/components/ui/input"
@@ -9,32 +8,16 @@ import {addAccount} from "@/store/accountsSlice"
 import {CURRENCIES, CURRENCY_CONFIG} from "@/config/currencies"
 import {useId} from "react";
 import {useAppDispatch} from "@/store/store.ts";
+import { accountFormSchema, type AccountFormData } from "@/types/accounts"
 
-const createAccountSchema = z.object({
-  name: z.string().min(2, {
-    message: "Account name must be at least 2 characters.",
-  }),
-  balance: z
-    .string()
-    .min(1, {message: "Initial balance is required."})
-    .regex(/^\d*\.?\d*$/, {message: "Only numbers and decimal point allowed."})
-    .refine((val) => !isNaN(parseFloat(val)), {message: "Initial balance must be a valid number."})
-    .refine((val) => parseFloat(val) >= 0, {message: "Initial balance must be 0 or greater."}),
-  currency: z.enum(CURRENCIES, {
-    message: "Select Currency",
-  }),
-  description: z.string().optional()
-})
-
-type CreateAccountFormData = z.infer<typeof createAccountSchema>
 type FormProps = { closeDialog?: () => void; };
 
 const AddAccountForm = ({closeDialog}: FormProps) => {
   const id = useId()
   const dispatch = useAppDispatch()
 
-  const form = useForm<CreateAccountFormData>({
-    resolver: zodResolver(createAccountSchema),
+  const form = useForm<AccountFormData>({
+    resolver: zodResolver(accountFormSchema),
     defaultValues: {
       name: "",
       currency: undefined,
@@ -43,7 +26,7 @@ const AddAccountForm = ({closeDialog}: FormProps) => {
     },
   })
 
-  function onSubmit(data: CreateAccountFormData) {
+  function onSubmit(data: AccountFormData) {
     const Payload = {
       id: id,
       name: data.name,
