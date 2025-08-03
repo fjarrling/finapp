@@ -1,25 +1,42 @@
 import {createSelector, createSlice, type PayloadAction} from "@reduxjs/toolkit";
 import {type RootState} from "@/store/store.ts";
+import type {CategoryColor} from "@/config/categoryColors.ts";
 
 type CategoryType = 'income' | 'expense'
 
+type CategoryId = string
+
 export interface Category {
-  id: string;
+  id: CategoryId;
   name: string;
   type: CategoryType;
-  description?: string | undefined;
+  color: CategoryColor;
+  description?: string;
 }
 
-type CategoryId = string
 
 interface CategoriesState {
   categories: Record<CategoryId, Category>
 }
 
 const initialState: CategoriesState = {
-  categories: {}
+  categories: {
+    "123": {
+      id: "123",
+      name: "Зарплата",
+      type: "income",
+      color: "bg-blue-500",
+      description: "Основная Зарплата"
+    },
+    "456": {
+      id: "456",
+      name: "Продукты",
+      type: "expense",
+      color: "bg-red-500",
+      description: "Покупка продуктов питания"
+    }
+  }
 }
-
 
 
 const categoriesSlice = createSlice({
@@ -36,6 +53,7 @@ const categoriesSlice = createSlice({
         id: string;
         name?: string;
         type?: CategoryType;
+        color?: CategoryColor;
         description?: string | undefined;
       }>) => {
         const {id, ...changes} = action.payload
