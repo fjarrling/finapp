@@ -13,8 +13,8 @@ const Accounts = () => {
       <Header/>
       <div className='container'>
         <div className='flex flex-col items-start py-8'>
-          <div className='w-full flex items-center justify-between mb-4'>
-            <h1>
+          <div className='w-full flex items-center justify-between mb-8'>
+            <h1 className="text-4xl">
               My Accounts
             </h1>
             <FormDialog Form={AddAccountForm} title="Add Account"/>
