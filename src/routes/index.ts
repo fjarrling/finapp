@@ -1,17 +1,35 @@
 import type {RouteObject} from "react-router";
 import Home from "@/pages/Home";
 import Accounts from "@/pages/Accounts";
+import Transactions from "@/pages/Transactions";
+import RootLayout from "@/Layouts/RootLayout/RootLayout.tsx";
+import Categories from "@/pages/Categories";
 
 
 const ROUTES: RouteObject[] = [
   {
     path: "/",
-    Component: Home,
+    Component: RootLayout,
+    children: [
+      {
+        index: true,
+        Component: Home,
+      },
+      {
+        path: "/accounts",
+        Component: Accounts
+      },
+      {
+        path: "/categories",
+        Component: Categories
+      },
+      {
+        path: "/transactions",
+        Component: Transactions
+      }
+
+    ]
   },
-  {
-    path: "/accounts",
-    Component: Accounts
-  }
 ];
 
 export default ROUTES;

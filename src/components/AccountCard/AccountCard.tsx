@@ -27,7 +27,6 @@ const AccountCard = ({account}: AccountCardProps) => {
       <CardContent className='mt-auto flex items-center justify-between'>
         <div className="flex flex-col gap-1 ">
           <div className='text-sm text-gray-500'>Balance:</div>
-          {/* Вариант 1: Используем утилиту formatCurrency */}
           <span className='text-2xl font-medium'>
             {formatCurrency(account.balance, account.currency)}
           </span>

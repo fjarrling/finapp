@@ -14,7 +14,7 @@ const Header = () => {
 
 
   return (
-    <header className='w-full border-b'>
+    <header className='w-full shadow-md fixed bg-white'>
       <div className='container'>
         <div className='flex items-center justify-between py-5'>
           <NavLink  to='/'>
@@ -40,6 +40,13 @@ const Header = () => {
                 <NavigationMenuLink asChild={true}>
                   <NavLink to='/transactions'>
                     Transactions
+                  </NavLink>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild={true}>
+                  <NavLink to='/categories'>
+                    Categories
                   </NavLink>
                 </NavigationMenuLink>
               </NavigationMenuItem>

@@ -29,8 +29,8 @@ const Dashboard = () => {
   return (
     <section>
       <div className='container'>
-        <div className='py-12 flex flex-col items-start'>
-          <h2 className='text-4xl mb-4'>
+        <div className='py-8 flex flex-col items-start'>
+          <h2 className='text-4xl mb-8'>
             Dashboard
           </h2>
           <DropdownMenu>
