@@ -5,7 +5,8 @@ import {Button} from "@/components/ui/button"
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
 import {Input} from "@/components/ui/input"
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/components/ui/select"
-import {CURRENCIES, addAccount} from "@/store/accountsSlice"
+import {addAccount} from "@/store/accountsSlice"
+import {CURRENCIES, CURRENCY_CONFIG} from "@/config/currencies"
 import {useId} from "react";
 import {useAppDispatch} from "@/store/store.ts";
 
@@ -28,7 +29,6 @@ const createAccountSchema = z.object({
 type CreateAccountFormData = z.infer<typeof createAccountSchema>
 type FormProps = { closeDialog?: () => void; };
 
-
 const AddAccountForm = ({closeDialog}: FormProps) => {
   const id = useId()
   const dispatch = useAppDispatch()
@@ -43,7 +43,6 @@ const AddAccountForm = ({closeDialog}: FormProps) => {
     },
   })
 
-
   function onSubmit(data: CreateAccountFormData) {
     const Payload = {
       id: id,
@@ -52,9 +51,6 @@ const AddAccountForm = ({closeDialog}: FormProps) => {
       currency: data.currency,
       description: data.description,
     }
-
-    // console.log('Form data:', data)
-    // console.log('Payload:', Payload)
 
     dispatch(addAccount(Payload))
 
@@ -114,7 +110,7 @@ const AddAccountForm = ({closeDialog}: FormProps) => {
                 <SelectContent>
                   {CURRENCIES.map((cur) => (
                     <SelectItem key={cur} value={cur}>
-                      {cur}
+                      {CURRENCY_CONFIG[cur].symbol} {cur} - {CURRENCY_CONFIG[cur].name}
                     </SelectItem>
                   ))}
                 </SelectContent>

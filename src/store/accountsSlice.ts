@@ -1,12 +1,7 @@
 import {createSelector, createSlice, type PayloadAction} from '@reduxjs/toolkit'
 import type {RootState} from '@/store/store';
+import {type Currency} from '@/config/currencies';
 
-export const CURRENCIES = ["RUB", "USD", "EUR"] as const;
-
-export type Currency = typeof CURRENCIES[number];
-
-// TODO: вынести отдельно в конфиг валюты
-// TODO: Переосмыслить баланс, сделать чтобы баланс высчитывался на основе массива транзакций.
 
 export interface Account {
   id: AccountId;

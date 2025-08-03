@@ -5,7 +5,8 @@ import {Button} from "@/components/ui/button"
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
 import {Input} from "@/components/ui/input"
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/components/ui/select"
-import {CURRENCIES, updateAccount, removeAccount, type Account, type AccountId} from "@/store/accountsSlice"
+import {updateAccount, removeAccount, type Account, type AccountId} from "@/store/accountsSlice"
+import {CURRENCIES, CURRENCY_CONFIG} from "@/config/currencies"
 import {useAppDispatch} from "@/store/store.ts";
 
 const createAccountSchema = z.object({
@@ -121,7 +122,7 @@ const EditAccountForm = ({closeDialog, account}: FormProps) => {
                 <SelectContent>
                   {CURRENCIES.map((cur) => (
                     <SelectItem key={cur} value={cur}>
-                      {cur}
+                      {CURRENCY_CONFIG[cur].symbol} {cur} - {CURRENCY_CONFIG[cur].name}
                     </SelectItem>
                   ))}
                 </SelectContent>
