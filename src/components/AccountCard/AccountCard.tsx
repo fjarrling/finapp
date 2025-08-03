@@ -19,8 +19,10 @@ const AccountCard = ({account}: AccountCardProps) => {
         <CardAction>
           <FormDialog
             formProps={{account}}
+            variant="outline"
+            size="sm"
             Form={EditAccountForm}
-            title="Edit Account"
+            title="Edit"
           />
         </CardAction>
       </CardHeader>
@@ -33,7 +35,7 @@ const AccountCard = ({account}: AccountCardProps) => {
         </div>
         <div className="flex flex-col gap-1  items-end">
           <div className='text-sm text-gray-500'>Currency Type:</div>
-          <span className='text-xl font-medium'>
+          <span className='text-lg font-medium'>
             {getCurrencyName(account.currency)}
           </span>
         </div>

@@ -1,6 +1,7 @@
 import {Dialog, DialogContent, DialogTrigger, DialogTitle, DialogDescription} from "@/components/ui/dialog";
-import {Button} from "@/components/ui/button";
+import {Button, buttonVariants} from "@/components/ui/button";
 import React, {useState} from "react";
+import type {VariantProps} from "class-variance-authority";
 
 
 type FormDialogProps<P> = {
@@ -9,11 +10,13 @@ type FormDialogProps<P> = {
   Form: React.ComponentType<P>;
   formProps?: P;
   closeDialog?: () => void;
+  variant?: VariantProps<typeof buttonVariants>["variant"];
+  size?: VariantProps<typeof buttonVariants>["size"]
 };
 
 
 function FormDialog<P>(props: FormDialogProps<P>) {
-  const {title, triggerText, Form, formProps = {} as P} = props;
+  const {variant, size, title, triggerText, Form, formProps = {} as P} = props;
 
   const [open, setOpen] = useState(false);
 
@@ -25,7 +28,7 @@ function FormDialog<P>(props: FormDialogProps<P>) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="cursor-pointer">
+        <Button variant={variant} size={size}>
           {triggerText || title}
         </Button>
       </DialogTrigger>
