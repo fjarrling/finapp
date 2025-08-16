@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
 import { type AccountId } from "@/store/accountsSlice"
+import {Trash2} from "lucide-react";
 
 interface DeleteAccountAlertProps {
   accountId: AccountId
@@ -21,8 +22,12 @@ export const DeleteAccountAlert = ({ accountId, onDelete }: DeleteAccountAlertPr
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button type="button" variant="destructive">
-          Delete
+        <Button
+          variant="outline"
+          size="icon"
+          className="text-red-600 hover:text-red-700"
+        >
+          <Trash2 className="w-4 h-4"/>
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
