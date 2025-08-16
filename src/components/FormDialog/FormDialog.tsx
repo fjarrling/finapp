@@ -12,11 +12,12 @@ type FormDialogProps<P> = {
   closeDialog?: () => void;
   variant?: VariantProps<typeof buttonVariants>["variant"];
   size?: VariantProps<typeof buttonVariants>["size"]
+  children?: React.ReactNode;
 };
 
 
 function FormDialog<P>(props: FormDialogProps<P>) {
-  const {variant, size, title, triggerText, Form, formProps = {} as P} = props;
+  const {variant, size, title, triggerText, Form, formProps = {} as P, children} = props;
 
   const [open, setOpen] = useState(false);
 
@@ -28,9 +29,13 @@ function FormDialog<P>(props: FormDialogProps<P>) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant={variant} size={size}>
-          {triggerText || title}
-        </Button>
+        {children ? (
+          <div>{children}</div>
+        ) : (
+          <Button variant={variant} size={size}>
+            {triggerText || title}
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>{title}</DialogTitle>
