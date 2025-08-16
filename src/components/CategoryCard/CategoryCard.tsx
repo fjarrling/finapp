@@ -3,7 +3,6 @@ import {type Category, type CategoryId, removeCategory} from "@/store/categories
 import {useAppDispatch} from "@/store/store.ts";
 import {Edit2} from "lucide-react";
 import {Badge} from "@/components/ui/badge";
-import {Button} from "@/components/ui/button.tsx";
 import FormDialog from "@/components/FormDialog";
 import EditCategoryForm from "@/components/EditCategoryForm";
 import {DeleteCategoryAlert} from "@/components/DeleteCategoryAlert/DeleteCategoryAlert.tsx";
@@ -34,16 +33,16 @@ const CategoryCard = ({category}: CategoryCardProps) => {
         </div>
         <div className="flex items-center space-x-2">
           <Badge variant="outline" className="text-xs">
-            {category.type === 'income' ? 'Доход' : 'Расход'}
+            {category.type}
           </Badge>
           <FormDialog
             Form={EditCategoryForm}
             formProps={{category}}
             title="Edit Category"
+            variant="ghost"
+            size="icon"
           >
-            <Button variant="ghost" size="sm">
-              <Edit2 className="w-4 h-4"/>
-            </Button>
+            <Edit2 className="w-4 h-4"/>
           </FormDialog>
           <DeleteCategoryAlert
             categoryId={category.id}
