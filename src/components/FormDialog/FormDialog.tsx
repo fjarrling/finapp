@@ -7,17 +7,16 @@ import type {VariantProps} from "class-variance-authority";
 type FormDialogProps<P> = {
   title: string;
   triggerText?: string;
-  Form: React.ComponentType<P>;
-  formProps?: P;
-  closeDialog?: () => void;
   variant?: VariantProps<typeof buttonVariants>["variant"];
   size?: VariantProps<typeof buttonVariants>["size"]
   children?: React.ReactNode;
+  Form: React.ComponentType<P>;
+  formProps?: P;
 };
 
 
 function FormDialog<P>(props: FormDialogProps<P>) {
-  const {variant, size, title, triggerText, Form, formProps = {} as P, children} = props;
+  const {variant, size, title, triggerText, children, Form, formProps = {} as P} = props;
 
   const [open, setOpen] = useState(false);
 
@@ -29,13 +28,9 @@ function FormDialog<P>(props: FormDialogProps<P>) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        {children ? (
-          <div>{children}</div>
-        ) : (
-          <Button variant={variant} size={size}>
-            {triggerText || title}
-          </Button>
-        )}
+        <Button variant={variant} size={size}>
+          {children ? children : triggerText ? triggerText : title}
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>{title}</DialogTitle>
