@@ -8,7 +8,7 @@ import {updateAccount, removeAccount, type Account, type AccountId} from "@/stor
 import {CURRENCIES, CURRENCY_CONFIG} from "@/config/currencies"
 import {useAppDispatch} from "@/store/store.ts";
 import { accountFormSchema, type AccountFormData } from "@/types/accounts"
-import {DeleteAccountDialog} from "@/components/DeleteAccountAlert/DeleteAccountAlert.tsx";
+import {DeleteAccountAlert} from "@/components/DeleteAccountAlert/DeleteAccountAlert.tsx";
 
 type FormProps = {
   closeDialog?: () => void;
@@ -39,9 +39,6 @@ const EditAccountForm = ({closeDialog, account}: FormProps) => {
       currency: data.currency,
       description: data.description,
     }
-
-    // console.log('Form data:', data)
-    // console.log('Payload:', Payload)
 
     dispatch(updateAccount(Payload))
 
@@ -130,7 +127,7 @@ const EditAccountForm = ({closeDialog, account}: FormProps) => {
         />
         <div className="flex items-center justify-between">
           <Button type="submit">Submit</Button>
-          <DeleteAccountDialog
+          <DeleteAccountAlert
             accountId={account.id}
             onDelete={handleRemoveAccount}
           />

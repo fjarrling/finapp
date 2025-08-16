@@ -12,12 +12,12 @@ import {
 import { Button } from "@/components/ui/button"
 import { type AccountId } from "@/store/accountsSlice"
 
-interface DeleteAccountDialogProps {
+interface DeleteAccountAlertProps {
   accountId: AccountId
   onDelete: (accountId: AccountId) => void
 }
 
-export const DeleteAccountDialog = ({ accountId, onDelete }: DeleteAccountDialogProps) => {
+export const DeleteAccountAlert = ({ accountId, onDelete }: DeleteAccountAlertProps) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
