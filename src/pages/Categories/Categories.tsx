@@ -1,15 +1,13 @@
 import FormDialog from "@/components/FormDialog";
-import AddAccountForm from "@/components/AddAccountForm";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
-import {selectAllCategories, selectExpenseCategories, selectIncomeCategories} from "@/store/categoriesSlice.ts";
+import {selectExpenseCategories, selectIncomeCategories} from "@/store/categoriesSlice.ts";
 import {useAppSelector} from "@/store/store.ts";
 import CategoryCard from "@/components/CategoryCard/CategoryCard.tsx";
+import AddCategoryForm from "@/components/AddCategoryForm";
 
 const Categories = () => {
-  const categories = useAppSelector(selectAllCategories)
   const incomeCategories = useAppSelector(selectIncomeCategories)
   const expenseCategories = useAppSelector(selectExpenseCategories)
-  console.log(categories)
   return (
     <div className='container'>
       <div className='py-8 flex flex-col items-start'>
@@ -17,14 +15,14 @@ const Categories = () => {
           <h1 className="text-4xl">
             Categories
           </h1>
-          <FormDialog Form={AddAccountForm} title="Add Category"/>
+          <FormDialog Form={AddCategoryForm} title="Add Category"/>
         </div>
         <Tabs defaultValue="income-categories" className="gap-8 w-full">
           <TabsList className="w-full">
             <TabsTrigger value="income-categories">Income</TabsTrigger>
             <TabsTrigger value="expense-categories">Expense</TabsTrigger>
           </TabsList>
-          <TabsContent value="income-categories">
+          <TabsContent className="flex flex-col gap-2" value="income-categories">
             {
               !incomeCategories.length &&
               <div className="w-full flex items-center justify-center py-16 text-2xl">
@@ -38,7 +36,7 @@ const Categories = () => {
               ))
             }
           </TabsContent>
-          <TabsContent value="expense-categories">
+          <TabsContent className="flex flex-col gap-2" value="expense-categories">
             {
               !expenseCategories.length &&
               <div className="w-full flex items-center justify-center py-16 text-2xl">

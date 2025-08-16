@@ -2,9 +2,11 @@ import {createSelector, createSlice, type PayloadAction} from "@reduxjs/toolkit"
 import {type RootState} from "@/store/store.ts";
 import type {CategoryColor} from "@/config/categoryColors.ts";
 
-type CategoryType = 'income' | 'expense'
+export const CATEGORY_TYPES = ['income', 'expense'] as const
 
-type CategoryId = string
+export type CategoryType = typeof CATEGORY_TYPES[number]
+
+export type CategoryId = string
 
 export interface Category {
   id: CategoryId;
