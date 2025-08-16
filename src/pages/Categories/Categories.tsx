@@ -42,7 +42,7 @@ const Categories = () => {
             {
               !expenseCategories.length &&
               <div className="w-full flex items-center justify-center py-16 text-2xl">
-                You have not added categories yet
+                You have not added expense categories yet
               </div>
             }
             {
