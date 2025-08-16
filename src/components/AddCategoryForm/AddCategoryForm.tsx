@@ -48,7 +48,7 @@ const AddCategoryForm = ({closeDialog}: FormProps) => {
           name="name"
           render={({field}) => (
             <FormItem>
-              <FormLabel>Account Name</FormLabel>
+              <FormLabel>Category Name</FormLabel>
               <FormControl>
                 <Input placeholder="Enter Your Category Name" {...field} />
               </FormControl>
@@ -61,7 +61,7 @@ const AddCategoryForm = ({closeDialog}: FormProps) => {
           name="type"
           render={({field}) => (
             <FormItem>
-              <FormLabel>Currency type</FormLabel>
+              <FormLabel>Category Type</FormLabel>
               <Select
                 onValueChange={field.onChange}
                 defaultValue={field.value}
@@ -88,7 +88,7 @@ const AddCategoryForm = ({closeDialog}: FormProps) => {
           name="color"
           render={({field}) => (
             <FormItem>
-              <FormLabel>Currency type</FormLabel>
+              <FormLabel>Category Color</FormLabel>
               <Select
                 onValueChange={field.onChange}
                 defaultValue={field.value}
