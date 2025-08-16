@@ -1,11 +1,9 @@
-import type {FC} from "react";
-import {createBrowserRouter, RouterProvider} from "react-router";
-import ROUTES from "@/routes";
+import ROUTES from "@/routes"
+import { createBrowserRouter, RouterProvider } from "react-router"
 
-const AppRouter: FC = () => {
-  const router = createBrowserRouter(ROUTES)
-
-  return <RouterProvider router={router}/>
-}
+const AppRouter = () => {
+  const router = createBrowserRouter(ROUTES);
+  return <RouterProvider router={router}/>;
+};
 
 export default AppRouter;
