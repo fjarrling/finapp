@@ -8,7 +8,7 @@ export interface Account {
   name: string;
   balance: number;
   currency: Currency;
-  description?: string;
+  description?: string | undefined;
 }
 
 export type AccountId = string
