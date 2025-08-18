@@ -31,7 +31,7 @@ const CategoryCard = ({category}: CategoryCardProps) => {
             )}
           </div>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center gap-2">
           <Badge variant="outline" className="text-xs">
             {category.type}
           </Badge>
@@ -42,7 +42,7 @@ const CategoryCard = ({category}: CategoryCardProps) => {
             variant="ghost"
             size="icon"
           >
-            <Edit2 className="w-4 h-4"/>
+            <Edit2/>
           </FormDialog>
           <DeleteCategoryAlert
             categoryId={category.id}
