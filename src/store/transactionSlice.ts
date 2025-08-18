@@ -5,12 +5,12 @@ export interface Transaction {
   id: string;
   accountId: string;
   amount: number;
+  date: string;
+  categoryId: string;
   description?: string | undefined;
-  date: string
-  categoryId?: string
 }
 
-type TransactionId = string
+export type TransactionId = string
 
 interface TransactionsState {
   transactions: Record<TransactionId, Transaction>
@@ -71,4 +71,5 @@ export const selectTransactionsByAccountId = createSelector(
 )
 
 export const {addTransaction, removeTransaction, updateTransaction} = transactionsSlice.actions;
+
 export default transactionsSlice.reducer;
