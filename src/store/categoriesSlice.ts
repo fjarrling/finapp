@@ -13,7 +13,7 @@ export interface Category {
   name: string;
   type: CategoryType;
   color: CategoryColor;
-  description?: string;
+  description?: string | undefined;
 }
 
 
@@ -22,22 +22,7 @@ interface CategoriesState {
 }
 
 const initialState: CategoriesState = {
-  categories: {
-    "123": {
-      id: "123",
-      name: "Зарплата",
-      type: "income",
-      color: "bg-blue-500",
-      description: "Основная Зарплата"
-    },
-    "456": {
-      id: "456",
-      name: "Продукты",
-      type: "expense",
-      color: "bg-red-500",
-      description: "Покупка продуктов питания"
-    }
-  }
+  categories: {}
 }
 
 
