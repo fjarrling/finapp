@@ -9,8 +9,6 @@ interface AccountCardProps {
 }
 
 const AccountCard = ({account}: AccountCardProps) => {
-
-  console.log(account);
   return (
     <Card className='w-full'>
       <CardHeader>
