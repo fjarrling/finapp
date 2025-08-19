@@ -64,7 +64,10 @@ export const selectAllCategories = createSelector(
   (categories) => Object.values(categories)
 )
 
-export const selectCategoryById = (state: RootState, id: CategoryId) =>
+// export const selectCategoryById = (state: RootState, id: CategoryId) =>
+//   state.categories.categories[id]
+
+export const selectCategoryById = (id: CategoryId) => (state: RootState) =>
   state.categories.categories[id]
 
 export const selectIncomeCategories = createSelector(
@@ -78,4 +81,5 @@ export const selectExpenseCategories = createSelector(
 )
 
 export const {addCategory, removeCategory, updateCategory} = categoriesSlice.actions
+
 export default categoriesSlice.reducer

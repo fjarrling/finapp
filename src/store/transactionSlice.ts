@@ -59,7 +59,8 @@ export const selectAllTransactions = createSelector(
   (transactions) => Object.values(transactions)
 )
 
-export const selectTransactionById = (state: RootState, id: string): Transaction | undefined =>
+
+export const selectTransactionById = (id: string) => (state: RootState): Transaction | undefined =>
   state.transactions.transactions[id];
 
 

@@ -1,4 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
+import {nanoid} from "@reduxjs/toolkit";
 import {
   addTransaction,
   removeTransaction,
@@ -28,31 +29,28 @@ export interface UpdateTransactionData {
   description?: string;
 }
 
-const calcBalanceChange = (amount: number, type: "income" | "expense") =>
+const calcBalanceDelta = (amount: number, type: "income" | "expense") =>
   type === "income" ? Math.abs(amount) : -Math.abs(amount);
-
-const genId = () => `txn_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
-
 
 export const addTransactionThunk = createAsyncThunk<
   Transaction,
   CreateTransactionData,
   { state: RootState; rejectValue: string }
->("transactions/addTransactionThunk", async (data, {dispatch, getState, rejectWithValue}) => {
+>("transactions/addTransactionThunk", async (payload, {dispatch, getState, rejectWithValue}) => {
   const state = getState();
 
-  const account = selectAccountById(data.accountId)(state);
-  if (!account) return rejectWithValue(`Account ${data.accountId} not found`);
+  const account = selectAccountById(payload.accountId)(state);
+  if (!account) return rejectWithValue(`Account ${payload.accountId} not found`);
 
-  const category = selectCategoryById(state, data.categoryId);
-  if (!category) return rejectWithValue(`Category ${data.categoryId} not found`);
+  const category = selectCategoryById(payload.categoryId)(state);
+  if (!category) return rejectWithValue(`Category ${payload.categoryId} not found`);
 
-  const transaction: Transaction = {...data, id: genId(), amount: Math.abs(data.amount)};
+  const transaction: Transaction = {...payload, id: nanoid(), amount: Math.abs(payload.amount)};
 
-  const balanceChange = calcBalanceChange(transaction.amount, category.type);
+  const balanceDelta = calcBalanceDelta(transaction.amount, category.type);
 
   dispatch(addTransaction(transaction));
-  dispatch(changeBalance({id: data.accountId, delta: balanceChange}));
+  dispatch(changeBalance({id: payload.accountId, delta: balanceDelta}));
 
   return transaction;
 });
@@ -62,22 +60,22 @@ export const removeTransactionThunk = createAsyncThunk<
   Transaction,
   TransactionId,
   { state: RootState; rejectValue: string }
->("transactions/removeTransactionThunk", async (id, {dispatch, getState, rejectWithValue}) => {
+>("transactions/removeTransactionThunk", async (transactionId, {dispatch, getState, rejectWithValue}) => {
   const state = getState();
 
-  const transaction = selectTransactionById(state, id);
+  const transaction = selectTransactionById(transactionId)(state);
 
-  if (!transaction) return rejectWithValue(`Transaction ${id} not found`);
+  if (!transaction) return rejectWithValue(`Transaction ${transactionId} not found`);
 
   const account = selectAccountById(transaction.accountId)(state);
   if (!account) return rejectWithValue(`Account ${transaction.accountId} not found`);
 
-  const category = selectCategoryById(state, transaction.categoryId);
+  const category = selectCategoryById(transaction.categoryId)(state);
   if (!category) return rejectWithValue(`Category ${transaction.categoryId} not found`);
 
-  const rollback = -calcBalanceChange(transaction.amount, category.type);
+  const rollback = -calcBalanceDelta(transaction.amount, category.type);
 
-  dispatch(removeTransaction({id}));
+  dispatch(removeTransaction({id: transactionId}));
   dispatch(changeBalance({id: transaction.accountId, delta: rollback}));
 
   return transaction;
@@ -88,38 +86,38 @@ export const updateTransactionThunk = createAsyncThunk<
   Transaction,
   UpdateTransactionData,
   { state: RootState; rejectValue: string }
->("transactions/updateTransactionThunk", async (updateData, {dispatch, getState, rejectWithValue}) => {
+>("transactions/updateTransactionThunk", async (payload, {dispatch, getState, rejectWithValue}) => {
   const state = getState();
 
-  const prev = selectTransactionById(state, updateData.id);
+  const prevTransaction = selectTransactionById(payload.id)(state);
 
-  if (!prev) return rejectWithValue(`Transaction ${updateData.id} not found`);
+  if (!prevTransaction) return rejectWithValue(`Transaction ${payload.id} not found`);
 
-  const newAccountId = updateData.accountId ?? prev.accountId;
-  const newCategoryId = updateData.categoryId ?? prev.categoryId;
-  const newAmount = updateData.amount !== undefined ? Math.abs(updateData.amount) : prev.amount;
+  const newAccountId = payload.accountId ?? prevTransaction.accountId;
+  const newCategoryId = payload.categoryId ?? prevTransaction.categoryId;
+  const newAmount = payload.amount !== undefined ? Math.abs(payload.amount) : prevTransaction.amount;
 
   const account = selectAccountById(newAccountId)(state);
   if (!account) return rejectWithValue(`Account ${newAccountId} not found`);
 
-  const category = selectCategoryById(state, newCategoryId);
+  const category = selectCategoryById(newCategoryId)(state);
   if (!category) return rejectWithValue(`Category ${newCategoryId} not found`);
 
   // 1. Откатываем старое
-  const oldCategory = selectCategoryById(state, prev.categoryId);
-  if (!oldCategory) return rejectWithValue("Old category not found");
+  const prevCategory = selectCategoryById(prevTransaction.categoryId)(state);
+  if (!prevCategory) return rejectWithValue("Old category not found");
 
-  const oldDelta = calcBalanceChange(prev.amount, oldCategory.type);
-  dispatch(changeBalance({id: prev.accountId, delta: -oldDelta}));
+  const oldDelta = calcBalanceDelta(prevTransaction.amount, prevCategory.type);
+  dispatch(changeBalance({id: prevTransaction.accountId, delta: -oldDelta}));
 
   // 2. Обновляем транзакцию
-  const updated: Transaction = {...prev, ...updateData, amount: newAmount};
-  dispatch(updateTransaction(updated));
+  const updatedTransaction: Transaction = {...prevTransaction, ...payload, amount: newAmount};
+  dispatch(updateTransaction(updatedTransaction));
 
   // 3. Применяем новое изменение
-  const newDelta = calcBalanceChange(newAmount, category.type);
+  const newDelta = calcBalanceDelta(newAmount, category.type);
 
   dispatch(changeBalance({id: newAccountId, delta: newDelta}));
 
-  return updated;
+  return updatedTransaction;
 });
