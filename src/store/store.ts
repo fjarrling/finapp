@@ -4,6 +4,7 @@ import transactionsReducer from './transactionSlice'
 import categoriesReducer from './categoriesSlice'
 import {useDispatch, useSelector, useStore} from 'react-redux'
 import {localStorageMiddleware, loadFromLocalStorage} from './middlewares/localStorageMiddleware'
+import type {Action, ThunkAction} from '@reduxjs/toolkit'
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +21,8 @@ export const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 export type AppStore = typeof store
+export type AppThunk<ReturnType = void> =
+  ThunkAction<ReturnType, RootState, unknown, Action<string>>
 
 export const useAppDispatch = useDispatch.withTypes<AppDispatch>()
 export const useAppSelector = useSelector.withTypes<RootState>()
