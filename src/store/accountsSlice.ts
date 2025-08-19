@@ -2,7 +2,6 @@ import {createSelector, createSlice, type PayloadAction} from '@reduxjs/toolkit'
 import type {RootState} from '@/store/store';
 import {type Currency} from '@/config/currencies';
 
-
 export interface Account {
   id: AccountId;
   name: string;
@@ -46,24 +45,9 @@ const accountsSlice = createSlice({
         ...changes,
       }
     },
-    updateBalance: (state, action: PayloadAction<{ id: AccountId, amount: number }>) => {
-      if (state.accounts[action.payload.id]) {
-        state.accounts[action.payload.id].balance = action.payload.amount;
-      }
-    },
     changeBalance: (state, action: PayloadAction<{ id: AccountId; delta: number }>) => {
       if (state.accounts[action.payload.id]) {
         state.accounts[action.payload.id].balance += action.payload.delta;
-      }
-    },
-    renameAccount: (state, action: PayloadAction<{ id: AccountId; name: string }>) => {
-      if (state.accounts[action.payload.id]) {
-        state.accounts[action.payload.id].name = action.payload.name;
-      }
-    },
-    changeCurrency: (state, action: PayloadAction<{ id: AccountId; currency: Currency }>) => {
-      if (state.accounts[action.payload.id]) {
-        state.accounts[action.payload.id].currency = action.payload.currency;
       }
     },
   }
@@ -122,10 +106,7 @@ export const {
   addAccount,
   removeAccount,
   updateAccount,
-  updateBalance,
-  renameAccount,
-  changeBalance,
-  changeCurrency
+  changeBalance
 } = accountsSlice.actions;
 
 export default accountsSlice.reducer;
