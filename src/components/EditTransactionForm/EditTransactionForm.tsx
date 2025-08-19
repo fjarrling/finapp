@@ -1,19 +1,28 @@
 import {zodResolver} from "@hookform/resolvers/zod"
 import {useForm} from "react-hook-form"
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
-import {Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue,} from "@/components/ui/select"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover"
 import {Calendar} from "@/components/ui/calendar"
 import {Button} from "@/components/ui/button"
 import {Input} from "@/components/ui/input"
 import {type TransactionFormData, transactionFormSchema} from "@/types/transactions.ts";
-import {type Transaction, updateTransaction} from "@/store/transactionSlice.ts";
+import {type Transaction} from "@/store/transactionSlice.ts";
 import {useAppDispatch, useAppSelector} from "@/store/store.ts";
 import {format} from "date-fns";
 import {cn} from "@/lib/utils.ts";
 import {CalendarIcon} from "lucide-react";
 import {selectAllAccounts} from "@/store/accountsSlice.ts";
 import {selectExpenseCategories, selectIncomeCategories} from "@/store/categoriesSlice.ts";
+import {updateTransactionThunk} from "@/store/thunks/transactionThunks.ts";
 
 type FormProps = {
   closeDialog?: () => void;
@@ -49,9 +58,14 @@ const EditTransactionForm = ({closeDialog, transaction}: FormProps) => {
       description: data.description,
     }
 
-    dispatch(updateTransaction(Payload))
-
-    if (closeDialog) closeDialog()
+    dispatch(updateTransactionThunk(Payload))
+      .unwrap()
+      .then(() => {
+        if (closeDialog) closeDialog()
+      })
+      .catch((error) => {
+        console.error("Unable to update transaction", error)
+      })
   }
 
   return (

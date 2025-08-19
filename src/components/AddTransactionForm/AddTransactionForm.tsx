@@ -14,20 +14,18 @@ import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover"
 import {Calendar} from "@/components/ui/calendar"
 import {Button} from "@/components/ui/button"
 import {Input} from "@/components/ui/input"
-import {useId} from "react";
 import {type TransactionFormData, transactionFormSchema} from "@/types/transactions.ts";
-import {addTransaction} from "@/store/transactionSlice.ts";
 import {selectAllAccounts} from "@/store/accountsSlice.ts";
 import {selectExpenseCategories, selectIncomeCategories} from "@/store/categoriesSlice.ts";
 import {useAppDispatch, useAppSelector} from "@/store/store.ts";
 import {format} from "date-fns";
 import {cn} from "@/lib/utils.ts";
 import {CalendarIcon} from "lucide-react";
+import {addTransactionThunk} from "@/store/thunks/transactionThunks.ts";
 
 type FormProps = { closeDialog?: () => void; };
 
 const AddTransactionForm = ({closeDialog}: FormProps) => {
-  const id = useId()
 
   const dispatch = useAppDispatch()
 
@@ -47,8 +45,7 @@ const AddTransactionForm = ({closeDialog}: FormProps) => {
   })
 
   function onSubmit(data: TransactionFormData) {
-    const Payload = {
-      id: id,
+    const payload = {
       accountId: data.accountId,
       amount: parseFloat(data.amount),
       date: data.date.toISOString(),
@@ -56,9 +53,14 @@ const AddTransactionForm = ({closeDialog}: FormProps) => {
       description: data.description,
     }
 
-    dispatch(addTransaction(Payload))
-
-    if (closeDialog) closeDialog()
+    dispatch(addTransactionThunk(payload))
+      .unwrap()
+      .then(() => {
+        if (closeDialog) closeDialog()
+      })
+      .catch(error => {
+        console.error("Unable to create transaction:", error)
+      })
   }
 
   return (

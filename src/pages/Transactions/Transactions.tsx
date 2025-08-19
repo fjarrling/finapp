@@ -1,7 +1,7 @@
 import FormDialog from "@/components/FormDialog";
 import AddTransactionForm from "@/components/AddTransactionForm";
 import {useAppDispatch, useAppSelector} from "@/store/store.ts";
-import {removeTransaction, selectAllTransactions, type TransactionId} from "@/store/transactionSlice.ts";
+import {selectAllTransactions, type TransactionId} from "@/store/transactionSlice.ts";
 import {format} from "date-fns";
 import {selectAccountsMap} from "@/store/accountsSlice.ts";
 import {selectCategoriesMap} from "@/store/categoriesSlice.ts";
@@ -9,6 +9,7 @@ import {getCurrencySymbol} from "@/config/currencies.ts";
 import EditTransactionForm from "@/components/EditTransactionForm";
 import {DeleteTransactionAlert} from "@/components/DeleteTransactionAlert/DeleteTransactionAlert.tsx";
 import {Edit2} from "lucide-react";
+import {removeTransactionThunk} from "@/store/thunks/transactionThunks.ts";
 
 const Transactions = () => {
   const dispatch = useAppDispatch();
@@ -18,7 +19,7 @@ const Transactions = () => {
   const categoriesMap = useAppSelector(selectCategoriesMap)
 
   const handleDeleteTransaction = (transactionId: TransactionId) => {
-    dispatch(removeTransaction({id: transactionId}))
+    dispatch(removeTransactionThunk(transactionId))
   }
   return (
     <div className='container'>
