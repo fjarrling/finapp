@@ -37,7 +37,7 @@ const categoriesSlice = createSlice({
         delete state.categories[action.payload.id]
       },
       updateCategory: (state, action: PayloadAction<{
-        id: string;
+        id: CategoryId;
         name?: string;
         type?: CategoryType;
         color?: CategoryColor;
@@ -64,10 +64,7 @@ export const selectAllCategories = createSelector(
   (categories) => Object.values(categories)
 )
 
-// export const selectCategoryById = (state: RootState, id: CategoryId) =>
-//   state.categories.categories[id]
-
-export const selectCategoryById = (id: CategoryId) => (state: RootState) =>
+export const selectCategoryById = (id: CategoryId) => (state: RootState): Category | undefined =>
   state.categories.categories[id]
 
 export const selectIncomeCategories = createSelector(

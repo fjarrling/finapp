@@ -4,16 +4,15 @@ import {Button} from "@/components/ui/button"
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
 import {Input} from "@/components/ui/input"
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/components/ui/select"
-import {useId} from "react";
 import {useAppDispatch} from "@/store/store.ts";
 import {type CategoryFormData, categoryFormSchema} from "@/types/categories.ts";
-import {addCategory, CATEGORY_TYPES} from "@/store/categoriesSlice.ts";
+import {addCategory, type Category, CATEGORY_TYPES} from "@/store/categoriesSlice.ts";
 import {CATEGORY_COLORS, getColorLabel} from "@/config/categoryColors.ts";
+import {nanoid} from "@reduxjs/toolkit";
 
 type FormProps = { closeDialog?: () => void; };
 
 const AddCategoryForm = ({closeDialog}: FormProps) => {
-  const id = useId()
   const dispatch = useAppDispatch()
 
   const form = useForm<CategoryFormData>({
@@ -27,8 +26,8 @@ const AddCategoryForm = ({closeDialog}: FormProps) => {
   })
 
   function onSubmit(data: CategoryFormData) {
-    const Payload = {
-      id: id,
+    const Payload: Category = {
+      id: nanoid(),
       name: data.name,
       type: data.type,
       color: data.color,

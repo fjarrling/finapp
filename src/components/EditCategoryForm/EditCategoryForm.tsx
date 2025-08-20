@@ -28,7 +28,7 @@ const EditCategoryForm = ({closeDialog, category}: FormProps) => {
   })
 
   function onSubmit(data: CategoryFormData) {
-    const Payload = {
+    const Payload: Category = {
       id: category.id,
       name: data.name,
       type: data.type,

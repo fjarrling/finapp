@@ -2,6 +2,8 @@ import {createSelector, createSlice, type PayloadAction} from '@reduxjs/toolkit'
 import type {RootState} from '@/store/store';
 import {type Currency} from '@/config/currencies';
 
+export type AccountId = string
+
 export interface Account {
   id: AccountId;
   name: string;
@@ -10,7 +12,6 @@ export interface Account {
   description?: string | undefined;
 }
 
-export type AccountId = string
 
 interface AccountsState {
   accounts: Record<AccountId, Account>;

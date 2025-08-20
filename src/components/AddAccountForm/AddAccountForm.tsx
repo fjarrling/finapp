@@ -4,16 +4,16 @@ import {Button} from "@/components/ui/button"
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
 import {Input} from "@/components/ui/input"
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/components/ui/select"
-import {addAccount} from "@/store/accountsSlice"
+import {type Account, addAccount} from "@/store/accountsSlice"
 import {CURRENCIES, CURRENCY_CONFIG} from "@/config/currencies"
-import {useId} from "react";
 import {useAppDispatch} from "@/store/store.ts";
-import { accountFormSchema, type AccountFormData } from "@/types/accounts"
+import {accountFormSchema, type AccountFormData} from "@/types/accounts"
+import {nanoid} from "@reduxjs/toolkit";
 
 type FormProps = { closeDialog?: () => void; };
 
 const AddAccountForm = ({closeDialog}: FormProps) => {
-  const id = useId()
+
   const dispatch = useAppDispatch()
 
   const form = useForm<AccountFormData>({
@@ -27,8 +27,8 @@ const AddAccountForm = ({closeDialog}: FormProps) => {
   })
 
   function onSubmit(data: AccountFormData) {
-    const Payload = {
-      id: id,
+    const Payload: Account = {
+      id: nanoid(),
       name: data.name,
       balance: parseFloat(data.balance),
       currency: data.currency,
@@ -37,8 +37,7 @@ const AddAccountForm = ({closeDialog}: FormProps) => {
 
     dispatch(addAccount(Payload))
 
-    if (closeDialog)
-      closeDialog()
+    if (closeDialog) closeDialog()
   }
 
   return (

@@ -7,7 +7,7 @@ import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/
 import {updateAccount, removeAccount, type Account, type AccountId} from "@/store/accountsSlice"
 import {CURRENCIES, CURRENCY_CONFIG} from "@/config/currencies"
 import {useAppDispatch} from "@/store/store.ts";
-import { accountFormSchema, type AccountFormData } from "@/types/accounts"
+import {accountFormSchema, type AccountFormData} from "@/types/accounts"
 import {DeleteAccountAlert} from "@/components/DeleteAccountAlert/DeleteAccountAlert.tsx";
 
 type FormProps = {
@@ -32,7 +32,7 @@ const EditAccountForm = ({closeDialog, account}: FormProps) => {
 
 
   const onSubmit = (data: AccountFormData) => {
-    const Payload = {
+    const Payload: Account = {
       id: account.id,
       name: data.name,
       balance: parseFloat(data.balance),
@@ -42,8 +42,7 @@ const EditAccountForm = ({closeDialog, account}: FormProps) => {
 
     dispatch(updateAccount(Payload))
 
-    if (closeDialog)
-      closeDialog()
+    if (closeDialog) closeDialog()
   }
 
   const handleRemoveAccount = (accountId: AccountId) => {
