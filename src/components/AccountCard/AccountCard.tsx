@@ -11,9 +11,12 @@ interface AccountCardProps {
 const AccountCard = ({account}: AccountCardProps) => {
   return (
     <Card className='w-full'>
-      <CardHeader>
+      <CardHeader className='gap-y-0'>
         <CardTitle className='text-3xl'>{account.name}</CardTitle>
-        <CardDescription>{account.description}</CardDescription>
+        {
+          account.description &&
+          <CardDescription>{account.description}</CardDescription>
+        }
         <CardAction>
           <FormDialog
             formProps={{account}}
