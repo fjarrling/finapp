@@ -21,7 +21,7 @@ import {format} from "date-fns";
 import {cn} from "@/lib/utils.ts";
 import {CalendarIcon} from "lucide-react";
 import {selectAllAccounts} from "@/store/accountsSlice.ts";
-import {selectExpenseCategories, selectIncomeCategories} from "@/store/categoriesSlice.ts";
+import {selectCategoriesMap, selectExpenseCategories, selectIncomeCategories} from "@/store/categoriesSlice.ts";
 import {updateTransactionThunk} from "@/store/thunks/transactionThunks.ts";
 
 type FormProps = {
@@ -34,6 +34,7 @@ const EditTransactionForm = ({closeDialog, transaction}: FormProps) => {
   const dispatch = useAppDispatch()
 
   const accounts = useAppSelector(selectAllAccounts)
+  const categoriesMap = useAppSelector(selectCategoriesMap)
   const incomeCategories = useAppSelector(selectIncomeCategories)
   const expenseCategories = useAppSelector(selectExpenseCategories)
 
@@ -49,10 +50,11 @@ const EditTransactionForm = ({closeDialog, transaction}: FormProps) => {
   })
 
   function onSubmit(data: TransactionFormData) {
-    const Payload = {
+    const Payload: Transaction = {
       id: transaction.id,
       accountId: data.accountId,
       amount: parseFloat(data.amount),
+      type: categoriesMap[data.categoryId].type,
       date: data.date.toISOString(),
       categoryId: data.categoryId,
       description: data.description,

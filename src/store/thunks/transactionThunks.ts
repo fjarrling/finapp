@@ -1,11 +1,11 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {nanoid} from "@reduxjs/toolkit";
 import {
   addTransaction,
   removeTransaction,
   updateTransaction,
   type Transaction,
   type TransactionId,
+  type TransactionType,
 } from "@/store/transactionSlice";
 import {changeBalance, selectAccountById} from "@/store/accountsSlice";
 import {selectCategoryById} from "@/store/categoriesSlice";
@@ -13,8 +13,10 @@ import {selectTransactionById} from "@/store/transactionSlice";
 import type {RootState} from "@/store/store";
 
 export interface CreateTransactionData {
+  id: TransactionId;
   accountId: string;
   amount: number;
+  type: TransactionType;
   date: string;
   categoryId: string;
   description?: string;
@@ -22,6 +24,7 @@ export interface CreateTransactionData {
 
 export interface UpdateTransactionData {
   id: TransactionId;
+  type?: TransactionType;
   accountId?: string;
   amount?: number;
   date?: string;
@@ -29,7 +32,7 @@ export interface UpdateTransactionData {
   description?: string;
 }
 
-const calcBalanceDelta = (amount: number, type: "income" | "expense") =>
+const calcBalanceDelta = (amount: number, type: TransactionType) =>
   type === "income" ? Math.abs(amount) : -Math.abs(amount);
 
 export const addTransactionThunk = createAsyncThunk<
@@ -45,7 +48,7 @@ export const addTransactionThunk = createAsyncThunk<
   const category = selectCategoryById(payload.categoryId)(state);
   if (!category) return rejectWithValue(`Category ${payload.categoryId} not found`);
 
-  const transaction: Transaction = {...payload, id: nanoid(), amount: Math.abs(payload.amount)};
+  const transaction: Transaction = {...payload, amount: Math.abs(payload.amount)};
 
   const balanceDelta = calcBalanceDelta(transaction.amount, category.type);
 

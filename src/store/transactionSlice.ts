@@ -1,16 +1,22 @@
 import {createSelector, createSlice, type PayloadAction} from '@reduxjs/toolkit'
 import {type RootState} from '@/store/store';
 
+export const TRANSACTION_TYPES = ['income', 'expense'] as const
+
+export type TransactionType = typeof TRANSACTION_TYPES[number]
+
+export type TransactionId = string
+
 export interface Transaction {
-  id: string;
+  id: TransactionId;
   accountId: string;
   amount: number;
+  type: TransactionType;
   date: string;
   categoryId: string;
   description?: string | undefined;
 }
 
-export type TransactionId = string
 
 interface TransactionsState {
   transactions: Record<TransactionId, Transaction>
@@ -34,6 +40,7 @@ const transactionsSlice = createSlice({
       id: string,
       accountId?: string,
       amount?: number,
+      type?: TransactionType
       description?: string,
       date?: string,
       categoryId?: string
@@ -59,17 +66,29 @@ export const selectAllTransactions = createSelector(
   (transactions) => Object.values(transactions)
 )
 
-
 export const selectTransactionById = (id: string) => (state: RootState): Transaction | undefined =>
   state.transactions.transactions[id];
 
+export const selectIncomeTransactions = createSelector(
+  selectAllTransactions,
+  (transactions) =>
+    transactions.filter(transaction => transaction.type === 'income')
+)
+
+export const selectExpenseTransactions = createSelector(
+  selectAllTransactions,
+  (transactions) =>
+    transactions.filter(transaction => transaction.type === 'expense')
+)
 
 export const selectTransactionsByAccountId = createSelector(
   selectAllTransactions,
-  (accountId: string) => accountId,
+  (_: RootState, accountId: string) => accountId,
   (transactions, accountId) =>
     transactions.filter(transaction => transaction.accountId === accountId)
 )
+
+// TODO export const selectDashboardMetrics
 
 export const {addTransaction, removeTransaction, updateTransaction} = transactionsSlice.actions;
 

@@ -16,12 +16,18 @@ import {Button} from "@/components/ui/button"
 import {Input} from "@/components/ui/input"
 import {type TransactionFormData, transactionFormSchema} from "@/types/transactions.ts";
 import {selectAllAccounts} from "@/store/accountsSlice.ts";
-import {selectExpenseCategories, selectIncomeCategories} from "@/store/categoriesSlice.ts";
+import {
+  selectCategoriesMap,
+  selectExpenseCategories,
+  selectIncomeCategories
+} from "@/store/categoriesSlice.ts";
 import {useAppDispatch, useAppSelector} from "@/store/store.ts";
 import {format} from "date-fns";
 import {cn} from "@/lib/utils.ts";
 import {CalendarIcon} from "lucide-react";
 import {addTransactionThunk} from "@/store/thunks/transactionThunks.ts";
+import {type Transaction} from "@/store/transactionSlice.ts";
+import {nanoid} from "@reduxjs/toolkit";
 
 type FormProps = { closeDialog?: () => void; };
 
@@ -30,6 +36,7 @@ const AddTransactionForm = ({closeDialog}: FormProps) => {
   const dispatch = useAppDispatch()
 
   const accounts = useAppSelector(selectAllAccounts)
+  const categoriesMap = useAppSelector(selectCategoriesMap)
   const incomeCategories = useAppSelector(selectIncomeCategories)
   const expenseCategories = useAppSelector(selectExpenseCategories)
 
@@ -45,9 +52,11 @@ const AddTransactionForm = ({closeDialog}: FormProps) => {
   })
 
   function onSubmit(data: TransactionFormData) {
-    const payload = {
+    const payload: Transaction = {
+      id: nanoid(),
       accountId: data.accountId,
       amount: parseFloat(data.amount),
+      type: categoriesMap[data.categoryId].type,
       date: data.date.toISOString(),
       categoryId: data.categoryId,
       description: data.description,
