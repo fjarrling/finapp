@@ -1,22 +1,36 @@
-import {configureStore} from '@reduxjs/toolkit'
+import {configureStore, type Action, type ThunkAction, combineReducers} from '@reduxjs/toolkit'
+import {useDispatch, useSelector, useStore} from 'react-redux'
+import {persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER,} from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 import accountsReducer from './accountsSlice'
 import transactionsReducer from './transactionSlice'
 import categoriesReducer from './categoriesSlice'
-import {useDispatch, useSelector, useStore} from 'react-redux'
-import {localStorageMiddleware, loadFromLocalStorage} from './middlewares/localStorageMiddleware'
-import type {Action, ThunkAction} from '@reduxjs/toolkit'
 
-export const store = configureStore({
-  reducer: {
-    accounts: accountsReducer,
-    transactions: transactionsReducer,
-    categories: categoriesReducer,
-  },
-  preloadedState: loadFromLocalStorage(),
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(localStorageMiddleware)
+const rootReducer = combineReducers({
+  accounts: accountsReducer,
+  transactions: transactionsReducer,
+  categories: categoriesReducer,
 })
 
+const persistedConfig = {
+  key: 'finApp',
+  storage,
+}
+
+const persistedReducer = persistReducer(persistedConfig, rootReducer)
+
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+})
+
+export const persistor = persistStore(store)
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch

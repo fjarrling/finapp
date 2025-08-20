@@ -1,14 +1,17 @@
 import AppRouter from "@/components/AppRouter/AppRouter.tsx";
-import {Provider} from "react-redux";
-import {store} from "@/store/store";
 import {StrictMode} from "react";
+import {Provider} from "react-redux";
+import {persistor, store} from "@/store/store";
+import {PersistGate} from 'redux-persist/integration/react'
 
 function App() {
 
   return (
     <StrictMode>
       <Provider store={store}>
-        <AppRouter/>
+        <PersistGate persistor={persistor} loading={null}>
+          <AppRouter/>
+        </PersistGate>
       </Provider>
     </StrictMode>
   )
