@@ -66,8 +66,9 @@ export const selectAllTransactions = createSelector(
   (transactions) => Object.values(transactions)
 )
 
-export const selectTransactionById = (id: string) => (state: RootState): Transaction | undefined =>
-  state.transactions.transactions[id];
+export const selectTransactionById = (id: string) =>
+  (state: RootState): Transaction | undefined =>
+    state.transactions.transactions[id];
 
 export const selectIncomeTransactions = createSelector(
   selectAllTransactions,
@@ -88,7 +89,48 @@ export const selectTransactionsByAccountId = createSelector(
     transactions.filter(transaction => transaction.accountId === accountId)
 )
 
-// TODO export const selectDashboardMetrics
+export const selectDashboardMetrics = createSelector(
+  selectAllTransactions,
+  (_: RootState, accountId: string) => accountId,
+  (transactions, accountId) => {
+    const now = new Date()
+    const currentMonth = now.getMonth()
+    const currentYear = now.getFullYear()
+
+    const prevMonth = currentMonth === 0 ? 11 : currentMonth - 1
+    const prevMonthYear = currentMonth === 0 ? currentYear - 1 : currentYear
+
+    let income = 0
+    let expense = 0
+    let lastMonthIncome = 0
+    let lastMonthExpense = 0
+
+    transactions.forEach(t => {
+      if (accountId !== 'total' && t.accountId !== accountId) return
+
+      const date = new Date(t.date)
+      const isCurrentMonth = date.getMonth() === currentMonth && date.getFullYear() === currentYear
+      const isLastMonth = date.getMonth() === prevMonth && date.getFullYear() === prevMonthYear
+
+      if (isCurrentMonth) {
+        if (t.type === 'income') income += t.amount
+        if (t.type === 'expense') expense += t.amount
+      } else if (isLastMonth) {
+        if (t.type === 'income') lastMonthIncome += t.amount
+        if (t.type === 'expense') lastMonthExpense += t.amount
+      }
+    })
+
+    const savings = income - expense
+    const lastMonthSavings = lastMonthIncome - lastMonthExpense
+
+    const incomeDiff = lastMonthIncome ? Math.round(((income - lastMonthIncome) / lastMonthIncome) * 100) : 0
+    const expenseDiff = lastMonthExpense ? Math.round(((expense - lastMonthExpense) / lastMonthExpense) * 100) : 0
+    const savingsDiff = lastMonthSavings ? Math.round(((savings - lastMonthSavings) / lastMonthSavings) * 100) : 0
+
+    return {income, expense, savings, incomeDiff, expenseDiff, savingsDiff}
+  }
+)
 
 export const {addTransaction, removeTransaction, updateTransaction} = transactionsSlice.actions;
 
