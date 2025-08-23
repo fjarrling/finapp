@@ -8,7 +8,6 @@ import {getCurrencySymbol} from "@/config/currencies";
 import {EditTransactionForm} from "@/components/forms/transactions";
 import {AddTransactionForm} from "@/components/forms/transactions";
 import {DeleteTransactionAlert} from "@/components/forms/transactions";
-import {Edit2} from "lucide-react";
 import {removeTransactionThunk} from "@/store/thunks/transactionThunks";
 
 const Transactions = () => {
@@ -28,7 +27,9 @@ const Transactions = () => {
           <h1 className="text-4xl">
             Transactions
           </h1>
-          <FormDialog Form={AddTransactionForm} title="Add Transaction"/>
+          <FormDialog title="Add Transaction">
+            {(closeDialog) => <AddTransactionForm closeDialog={closeDialog}/>}
+          </FormDialog>
         </div>
         {
           !transactions.length &&
@@ -79,14 +80,18 @@ const Transactions = () => {
                     </td>
                     <td className="p-4 text-right space-x-2">
                       <FormDialog
-                        formProps={{transaction}}
-                        Form={EditTransactionForm}
                         title="Edit Transaction"
-                        triggerText="Edit"
                         variant="outline"
                         size="icon"
+                        icon="edit"
                       >
-                        <Edit2/>
+                        {
+                          (closeDialog) =>
+                            <EditTransactionForm
+                              closeDialog={closeDialog}
+                              transaction={transaction}
+                            />
+                        }
                       </FormDialog>
                       <DeleteTransactionAlert
                         transactionId={transaction.id}

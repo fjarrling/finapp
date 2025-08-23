@@ -15,7 +15,9 @@ const Categories = () => {
           <h1 className="text-4xl">
             Categories
           </h1>
-          <FormDialog Form={AddCategoryForm} title="Add Category"/>
+          <FormDialog title="Add Category">
+            {(closeDialog) => <AddCategoryForm closeDialog={closeDialog}/>}
+          </FormDialog>
         </div>
         <Tabs defaultValue="income-categories" className="gap-8 w-full">
           <TabsList className="w-full">

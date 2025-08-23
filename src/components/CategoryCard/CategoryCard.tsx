@@ -1,7 +1,6 @@
 import {Card} from "@/components/ui/card";
 import {type Category, type CategoryId, removeCategory} from "@/store/categoriesSlice";
 import {useAppDispatch} from "@/store/store";
-import {Edit2} from "lucide-react";
 import {Badge} from "@/components/ui/badge";
 import FormDialog from "@/components/FormDialog";
 import {EditCategoryForm} from "@/components/forms/categories";
@@ -36,13 +35,18 @@ const CategoryCard = ({category}: CategoryCardProps) => {
             {category.type}
           </Badge>
           <FormDialog
-            Form={EditCategoryForm}
-            formProps={{category}}
             title="Edit Category"
             variant="ghost"
             size="icon"
+            icon="edit"
           >
-            <Edit2/>
+            {
+              (closeDialog) =>
+                <EditCategoryForm
+                  category={category}
+                  closeDialog={closeDialog}
+                />
+            }
           </FormDialog>
           <DeleteCategoryAlert
             categoryId={category.id}

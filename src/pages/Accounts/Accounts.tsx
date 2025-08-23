@@ -2,7 +2,7 @@ import {useAppSelector} from "@/store/store";
 import {selectAllAccounts} from "@/store/accountsSlice";
 import AccountCard from "@/components/AccountCard";
 import FormDialog from "@/components/FormDialog";
-import {AddAccountForm}from "@/components/forms/accounts";
+import {AddAccountForm} from "@/components/forms/accounts";
 
 const Accounts = () => {
   const accounts = useAppSelector(selectAllAccounts)
@@ -13,7 +13,9 @@ const Accounts = () => {
           <h1 className="text-4xl">
             My Accounts
           </h1>
-          <FormDialog Form={AddAccountForm} title="Add Account"/>
+          <FormDialog title="Add Account">
+            {(closeDialog) => <AddAccountForm closeDialog={closeDialog} />}
+          </FormDialog>
         </div>
         {!accounts.length &&
           <div className="w-full flex items-center justify-center py-16 text-2xl">

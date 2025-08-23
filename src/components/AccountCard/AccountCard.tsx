@@ -19,12 +19,19 @@ const AccountCard = ({account}: AccountCardProps) => {
         }
         <CardAction>
           <FormDialog
-            formProps={{account}}
+            title="Edit account"
+            triggerText="Edit"
             variant="outline"
             size="sm"
-            Form={EditAccountForm}
-            title="Edit"
-          />
+          >
+            {
+              (closeDialog) =>
+                <EditAccountForm
+                  closeDialog={closeDialog}
+                  account={account}
+                />
+            }
+          </FormDialog>
         </CardAction>
       </CardHeader>
       <CardContent className='mt-auto flex items-center justify-between'>
