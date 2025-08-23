@@ -6,10 +6,10 @@ import {
   type Transaction,
   type TransactionId,
   type TransactionType,
-} from "@/store/transactionSlice";
+} from "@/store/transactionsSlice";
 import {changeBalance, selectAccountById} from "@/store/accountsSlice";
 import {selectCategoryById} from "@/store/categoriesSlice";
-import {selectTransactionById} from "@/store/transactionSlice";
+import {selectTransactionById} from "@/store/transactionsSlice";
 import type {RootState} from "@/store/store";
 
 export interface CreateTransactionData {

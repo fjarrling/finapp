@@ -3,7 +3,7 @@ import {useDispatch, useSelector, useStore} from 'react-redux'
 import {persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER,} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import accountsReducer from './accountsSlice'
-import transactionsReducer from './transactionSlice'
+import transactionsReducer from './transactionsSlice'
 import categoriesReducer from './categoriesSlice'
 
 const rootReducer = combineReducers({
