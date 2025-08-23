@@ -1,69 +1,56 @@
-# React + TypeScript + Vite
+# FinApp
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Небольшое pet-приложение для управления финансами.  
+Состоит из страниц для учета счетов, транзакций и категорий, с сохранением данных в `localStorage` через **redux-persist**.
 
-Currently, two official plugins are available:
+## 🚀 Стек технологий
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React 19** + **React Router 7** – UI и маршрутизация
+- **Redux Toolkit** + **redux-persist** – управление состоянием и хранение данных
+- **Shadcn/ui** + **Tailwind CSS** – UI-компоненты и стили
+- **React Hook Form** + **Zod** – работа с формами и валидация
+- **Vite** + **TypeScript** – сборка и разработка
 
-## Expanding the ESLint configuration
+## 📂 Структура приложения
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Store (`store.ts`)
+- `accountsSlice` – управление счетами
+- `transactionsSlice` – управление транзакциями
+- `categoriesSlice` – категории расходов/доходов
+- данные сохраняются в `localStorage` с помощью `redux-persist`
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Router (`router.ts`)
+- `/` → `Home` (главная)
+- `/accounts` → `Accounts` (страница счетов)
+- `/categories` → `Categories` (категории)
+- `/transactions` → `Transactions` (транзакции)
+- общий лэйаут: `RootLayout`
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 📦 Скрипты
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev       # запуск dev-сервера
+npm run build     # сборка проекта
+npm run preview   # предпросмотр собранного билда
+npm run lint      # линтинг eslint
+```
+## 🛠 Установка и запуск
+
+```bash
+# клонирование репозитория
+git clone https://github.com/your-username/finapp.git
+cd finapp
+
+# установка зависимостей
+npm install
+
+# запуск dev-сервера
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🔮 Планы по развитию
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- [ ] Добавить авторизацию
+- [ ] Подключить бэкенд / API
+- [ ] Экспорт/импорт данных
+- [ ] Темизация (светлая/тёмная)  
