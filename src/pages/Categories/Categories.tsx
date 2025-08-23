@@ -1,9 +1,9 @@
 import FormDialog from "@/components/FormDialog";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
-import {selectExpenseCategories, selectIncomeCategories} from "@/store/categoriesSlice.ts";
-import {useAppSelector} from "@/store/store.ts";
-import CategoryCard from "@/components/CategoryCard/CategoryCard.tsx";
-import AddCategoryForm from "@/components/AddCategoryForm";
+import {selectExpenseCategories, selectIncomeCategories} from "@/store/categoriesSlice";
+import {useAppSelector} from "@/store/store";
+import CategoryCard from "@/components/CategoryCard/CategoryCard";
+import {AddCategoryForm} from "@/components/forms/categories";
 
 const Categories = () => {
   const incomeCategories = useAppSelector(selectIncomeCategories)

@@ -1,4 +1,4 @@
-import FormDialog from './FormDialog.tsx';
+import FormDialog from './FormDialog';
 
 
 export default FormDialog;

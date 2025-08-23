@@ -1,11 +1,11 @@
-import {Card} from "@/components/ui/card.tsx";
-import {type Category, type CategoryId, removeCategory} from "@/store/categoriesSlice.ts";
-import {useAppDispatch} from "@/store/store.ts";
+import {Card} from "@/components/ui/card";
+import {type Category, type CategoryId, removeCategory} from "@/store/categoriesSlice";
+import {useAppDispatch} from "@/store/store";
 import {Edit2} from "lucide-react";
 import {Badge} from "@/components/ui/badge";
 import FormDialog from "@/components/FormDialog";
-import EditCategoryForm from "@/components/EditCategoryForm";
-import {DeleteCategoryAlert} from "@/components/DeleteCategoryAlert/DeleteCategoryAlert.tsx";
+import {EditCategoryForm} from "@/components/forms/categories";
+import {DeleteCategoryAlert} from "@/components/forms/categories";
 
 type CategoryCardProps = {
   category: Category;

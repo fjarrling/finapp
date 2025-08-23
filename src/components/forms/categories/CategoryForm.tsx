@@ -1,44 +1,18 @@
-import {zodResolver} from "@hookform/resolvers/zod"
-import {useForm} from "react-hook-form"
-import {Button} from "@/components/ui/button"
-import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
-import {Input} from "@/components/ui/input"
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/components/ui/select"
-import {useAppDispatch} from "@/store/store.ts";
-import {type CategoryFormData, categoryFormSchema} from "@/types/categories.ts";
-import {addCategory, type Category, CATEGORY_TYPES} from "@/store/categoriesSlice.ts";
-import {CATEGORY_COLORS, getColorLabel} from "@/config/categoryColors.ts";
-import {nanoid} from "@reduxjs/toolkit";
+import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
+import {Input} from "@/components/ui/input";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
+import {CATEGORY_TYPES} from "@/store/categoriesSlice";
+import {CATEGORY_COLORS, getColorLabel} from "@/config/categoryColors";
+import {Button} from "@/components/ui/button";
+import type {UseFormReturn} from "react-hook-form";
+import type {CategoryFormData} from "@/types/categories";
 
-type FormProps = { closeDialog?: () => void; };
+type CategoryFormProps = {
+  form: UseFormReturn<CategoryFormData>
+  onSubmit: (data: CategoryFormData) => void
+}
 
-const AddCategoryForm = ({closeDialog}: FormProps) => {
-  const dispatch = useAppDispatch()
-
-  const form = useForm<CategoryFormData>({
-    resolver: zodResolver(categoryFormSchema),
-    defaultValues: {
-      name: "",
-      type: undefined,
-      color: undefined,
-      description: "",
-    },
-  })
-
-  function onSubmit(data: CategoryFormData) {
-    const Payload: Category = {
-      id: nanoid(),
-      name: data.name,
-      type: data.type,
-      color: data.color,
-      description: data.description,
-    }
-
-    dispatch(addCategory(Payload))
-
-    if (closeDialog) closeDialog()
-  }
-
+const CategoryForm = ({form, onSubmit}: CategoryFormProps) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -123,10 +97,12 @@ const AddCategoryForm = ({closeDialog}: FormProps) => {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <div className="flex items-center justify-between">
+          <Button type="submit">Submit</Button>
+        </div>
       </form>
     </Form>
   );
-}
+};
 
-export default AddCategoryForm;
+export default CategoryForm;

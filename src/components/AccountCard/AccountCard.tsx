@@ -1,8 +1,8 @@
-import {Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card.tsx";
-import type {Account} from "@/store/accountsSlice.ts";
+import {Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
+import type {Account} from "@/store/accountsSlice";
 import {formatCurrency, getCurrencyName} from "@/config/currencies";
 import FormDialog from "@/components/FormDialog";
-import EditAccountForm from "@/components/EditAccountForm";
+import {EditAccountForm} from "@/components/forms/accounts";
 
 interface AccountCardProps {
   account: Account;

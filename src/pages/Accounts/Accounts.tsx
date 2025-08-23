@@ -1,8 +1,8 @@
-import {useAppSelector} from "@/store/store.ts";
-import {selectAllAccounts} from "@/store/accountsSlice.ts";
+import {useAppSelector} from "@/store/store";
+import {selectAllAccounts} from "@/store/accountsSlice";
 import AccountCard from "@/components/AccountCard";
 import FormDialog from "@/components/FormDialog";
-import AddAccountForm from "@/components/AddAccountForm";
+import {AddAccountForm}from "@/components/forms/accounts";
 
 const Accounts = () => {
   const accounts = useAppSelector(selectAllAccounts)

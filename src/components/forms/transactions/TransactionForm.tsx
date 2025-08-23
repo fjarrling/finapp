@@ -1,6 +1,4 @@
-import {zodResolver} from "@hookform/resolvers/zod"
-import {useForm} from "react-hook-form"
-import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
+import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {
   Select,
   SelectContent,
@@ -8,67 +6,31 @@ import {
   SelectItem,
   SelectLabel,
   SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover"
-import {Calendar} from "@/components/ui/calendar"
-import {Button} from "@/components/ui/button"
-import {Input} from "@/components/ui/input"
-import {type TransactionFormData, transactionFormSchema} from "@/types/transactions.ts";
-import {type Transaction} from "@/store/transactionSlice.ts";
-import {useAppDispatch, useAppSelector} from "@/store/store.ts";
+  SelectValue
+} from "@/components/ui/select";
+import {Input} from "@/components/ui/input";
+import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
+import {Button} from "@/components/ui/button";
+import {cn} from "@/lib/utils";
 import {format} from "date-fns";
-import {cn} from "@/lib/utils.ts";
 import {CalendarIcon} from "lucide-react";
-import {selectAllAccounts} from "@/store/accountsSlice.ts";
-import {selectCategoriesMap, selectExpenseCategories, selectIncomeCategories} from "@/store/categoriesSlice.ts";
-import {updateTransactionThunk} from "@/store/thunks/transactionThunks.ts";
+import {Calendar} from "@/components/ui/calendar";
+import {useAppSelector} from "@/store/store";
+import {selectAllAccounts} from "@/store/accountsSlice";
+import {selectExpenseCategories, selectIncomeCategories} from "@/store/categoriesSlice";
+import type {TransactionFormData} from "@/types/transactions";
+import type {UseFormReturn} from "react-hook-form";
 
-type FormProps = {
-  closeDialog?: () => void;
-  transaction: Transaction;
-};
+type TransactionFormProps = {
+  form: UseFormReturn<TransactionFormData>
+  onSubmit: (data: TransactionFormData) => void
+}
 
-const EditTransactionForm = ({closeDialog, transaction}: FormProps) => {
-
-  const dispatch = useAppDispatch()
+const TransactionForm = ({form, onSubmit}: TransactionFormProps) => {
 
   const accounts = useAppSelector(selectAllAccounts)
-  const categoriesMap = useAppSelector(selectCategoriesMap)
   const incomeCategories = useAppSelector(selectIncomeCategories)
   const expenseCategories = useAppSelector(selectExpenseCategories)
-
-  const form = useForm<TransactionFormData>({
-    resolver: zodResolver(transactionFormSchema),
-    defaultValues: {
-      accountId: transaction.accountId,
-      amount: String(transaction.amount),
-      date: new Date(transaction.date),
-      categoryId: transaction.categoryId,
-      description: transaction.description,
-    },
-  })
-
-  function onSubmit(data: TransactionFormData) {
-    const Payload: Transaction = {
-      id: transaction.id,
-      accountId: data.accountId,
-      amount: parseFloat(data.amount),
-      type: categoriesMap[data.categoryId].type,
-      date: data.date.toISOString(),
-      categoryId: data.categoryId,
-      description: data.description,
-    }
-
-    dispatch(updateTransactionThunk(Payload))
-      .unwrap()
-      .then(() => {
-        if (closeDialog) closeDialog()
-      })
-      .catch((error) => {
-        console.error("Unable to update transaction", error)
-      })
-  }
 
   return (
     <Form {...form}>
@@ -205,10 +167,12 @@ const EditTransactionForm = ({closeDialog, transaction}: FormProps) => {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <div className="flex items-center justify-between">
+          <Button type="submit">Submit</Button>
+        </div>
       </form>
     </Form>
   );
-}
+};
 
-export default EditTransactionForm;
+export default TransactionForm;

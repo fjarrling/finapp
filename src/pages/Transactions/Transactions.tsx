@@ -1,15 +1,15 @@
 import FormDialog from "@/components/FormDialog";
-import AddTransactionForm from "@/components/AddTransactionForm";
-import {useAppDispatch, useAppSelector} from "@/store/store.ts";
-import {selectAllTransactions, type TransactionId} from "@/store/transactionSlice.ts";
+import {useAppDispatch, useAppSelector} from "@/store/store";
+import {selectAllTransactions, type TransactionId} from "@/store/transactionsSlice";
 import {format} from "date-fns";
-import {selectAccountsMap} from "@/store/accountsSlice.ts";
-import {selectCategoriesMap} from "@/store/categoriesSlice.ts";
-import {getCurrencySymbol} from "@/config/currencies.ts";
-import EditTransactionForm from "@/components/EditTransactionForm";
-import {DeleteTransactionAlert} from "@/components/DeleteTransactionAlert/DeleteTransactionAlert.tsx";
+import {selectAccountsMap} from "@/store/accountsSlice";
+import {selectCategoriesMap} from "@/store/categoriesSlice";
+import {getCurrencySymbol} from "@/config/currencies";
+import {EditTransactionForm} from "@/components/forms/transactions";
+import {AddTransactionForm} from "@/components/forms/transactions";
+import {DeleteTransactionAlert} from "@/components/forms/transactions";
 import {Edit2} from "lucide-react";
-import {removeTransactionThunk} from "@/store/thunks/transactionThunks.ts";
+import {removeTransactionThunk} from "@/store/thunks/transactionThunks";
 
 const Transactions = () => {
   const dispatch = useAppDispatch();

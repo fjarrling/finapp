@@ -1,45 +1,19 @@
-import {zodResolver} from "@hookform/resolvers/zod"
-import {useForm} from "react-hook-form"
-import {Button} from "@/components/ui/button"
-import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
-import {Input} from "@/components/ui/input"
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/components/ui/select"
-import {type Account, addAccount} from "@/store/accountsSlice"
-import {CURRENCIES, CURRENCY_CONFIG} from "@/config/currencies"
-import {useAppDispatch} from "@/store/store.ts";
-import {accountFormSchema, type AccountFormData} from "@/types/accounts"
-import {nanoid} from "@reduxjs/toolkit";
+import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
+import {Input} from "@/components/ui/input";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
+import {CURRENCIES, CURRENCY_CONFIG} from "@/config/currencies";
+import {Button} from "@/components/ui/button";
+import type {UseFormReturn} from "react-hook-form";
+import type {AccountFormData} from "@/types/accounts";
+import type {ReactNode} from "react";
 
-type FormProps = { closeDialog?: () => void; };
+type AccountFormProps = {
+  form: UseFormReturn<AccountFormData>;
+  onSubmit: (data: AccountFormData) => void;
+  children?: ReactNode
+}
 
-const AddAccountForm = ({closeDialog}: FormProps) => {
-
-  const dispatch = useAppDispatch()
-
-  const form = useForm<AccountFormData>({
-    resolver: zodResolver(accountFormSchema),
-    defaultValues: {
-      name: "",
-      currency: undefined,
-      balance: "",
-      description: "",
-    },
-  })
-
-  function onSubmit(data: AccountFormData) {
-    const Payload: Account = {
-      id: nanoid(),
-      name: data.name,
-      balance: parseFloat(data.balance),
-      currency: data.currency,
-      description: data.description,
-    }
-
-    dispatch(addAccount(Payload))
-
-    if (closeDialog) closeDialog()
-  }
-
+const AccountForm = ({form, onSubmit, children}: AccountFormProps) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -114,10 +88,13 @@ const AddAccountForm = ({closeDialog}: FormProps) => {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <div className="flex items-center justify-between">
+          <Button type="submit">Submit</Button>
+          {children}
+        </div>
       </form>
     </Form>
   );
-}
+};
 
-export default AddAccountForm;
+export default AccountForm;

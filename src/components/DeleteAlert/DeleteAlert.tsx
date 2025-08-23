@@ -9,21 +9,22 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
-import { type AccountId } from "@/store/accountsSlice"
-import {Trash2} from "lucide-react";
+import {Button} from "@/components/ui/button"
+import {Trash2} from "lucide-react"
 
-interface DeleteAccountAlertProps {
-  accountId: AccountId
-  onDelete: (accountId: AccountId) => void
+interface DeleteAlertProps {
+  id: string;
+  onDelete: (id: string) => void;
+  entityName: string;
+  triggerVariant?: "outline" | "ghost";
 }
 
-export const DeleteAccountAlert = ({ accountId, onDelete }: DeleteAccountAlertProps) => {
+export const DeleteAlert = ({id, onDelete, entityName, triggerVariant = "outline"}: DeleteAlertProps) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button
-          variant="outline"
+          variant={triggerVariant}
           size="icon"
           className="text-red-600 hover:text-red-700"
         >
@@ -34,13 +35,12 @@ export const DeleteAccountAlert = ({ accountId, onDelete }: DeleteAccountAlertPr
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete this account
-            and all transactions associated with it.
+            This action cannot be undone. This will permanently delete this {entityName}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={() => onDelete(accountId)}>
+          <AlertDialogAction onClick={() => onDelete(id)}>
             Delete
           </AlertDialogAction>
         </AlertDialogFooter>
