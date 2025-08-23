@@ -1,4 +1,4 @@
-import AppRouter from "@/components/AppRouter/AppRouter.tsx";
+import AppRouter from "@/components/AppRouter/AppRouter";
 import {StrictMode} from "react";
 import {Provider} from "react-redux";
 import {persistor, store} from "@/store/store";

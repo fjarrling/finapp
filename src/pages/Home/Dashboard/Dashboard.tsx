@@ -5,24 +5,24 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import {useAppSelector} from "@/store/store.ts";
+import {useAppSelector} from "@/store/store";
 import {
   type AccountId,
   selectAccountsMap,
   selectAllAccounts,
   selectTotalBalance
-} from "@/store/accountsSlice.ts";
+} from "@/store/accountsSlice";
 import {useMemo, useState} from "react";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle
-} from "@/components/ui/card.tsx";
+} from "@/components/ui/card";
 import {ChevronDown} from "lucide-react";
-import {selectDashboardMetrics} from "@/store/transactionSlice.ts";
-import {getCurrencySymbol} from "@/config/currencies.ts";
-import MetricCard from "@/components/DashboardMetricCard/DashboardMetricCard.tsx";
+import {selectDashboardMetrics} from "@/store/transactionsSlice";
+import {getCurrencySymbol} from "@/config/currencies";
+import MetricCard from "@/components/DashboardMetricCard/DashboardMetricCard";
 
 const Dashboard = () => {
   const accountsMap = useAppSelector(selectAccountsMap)

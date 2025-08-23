@@ -3,7 +3,7 @@ import {
   CardContent,
   CardHeader,
   CardTitle
-} from "@/components/ui/card.tsx";
+} from "@/components/ui/card";
 
 type MetricCardProps = {
   title: string;

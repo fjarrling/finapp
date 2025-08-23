@@ -1,4 +1,3 @@
-// src/config/currencies.ts
 export const CURRENCIES = ["RUB", "USD", "EUR"] as const;
 
 export type Currency = typeof CURRENCIES[number];

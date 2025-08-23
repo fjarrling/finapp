@@ -2,7 +2,7 @@ import type {RouteObject} from "react-router";
 import Home from "@/pages/Home";
 import Accounts from "@/pages/Accounts";
 import Transactions from "@/pages/Transactions";
-import RootLayout from "@/Layouts/RootLayout/RootLayout.tsx";
+import RootLayout from "@/Layouts/RootLayout/RootLayout";
 import Categories from "@/pages/Categories";
 
 

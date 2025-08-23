@@ -1,6 +1,6 @@
 import {createSelector, createSlice, type PayloadAction} from "@reduxjs/toolkit";
-import {type RootState} from "@/store/store.ts";
-import type {CategoryColor} from "@/config/categoryColors.ts";
+import {type RootState} from "@/store/store";
+import type {CategoryColor} from "@/config/categoryColors";
 
 export const CATEGORY_TYPES = ['income', 'expense'] as const
 

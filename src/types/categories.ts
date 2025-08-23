@@ -1,6 +1,6 @@
 import {z} from "zod"
-import {CATEGORY_COLORS} from "@/config/categoryColors.ts";
-import {CATEGORY_TYPES} from "@/store/categoriesSlice.ts";
+import {CATEGORY_COLORS} from "@/config/categoryColors";
+import {CATEGORY_TYPES} from "@/store/categoriesSlice";
 
 export const categoryFormSchema = z.object({
   name: z.string().min(2, {

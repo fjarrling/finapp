@@ -1,3 +1,3 @@
-import Transactions from "./Transactions.tsx";
+import Transactions from "./Transactions";
 
 export default Transactions;
