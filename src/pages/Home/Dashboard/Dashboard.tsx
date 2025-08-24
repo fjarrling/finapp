@@ -22,7 +22,7 @@ import {
 import {ChevronDown} from "lucide-react";
 import {selectDashboardMetrics} from "@/store/transactionsSlice";
 import {getCurrencySymbol} from "@/config/currencies";
-import MetricCard from "@/components/DashboardMetricCard/DashboardMetricCard";
+import MetricCard from "@/components/DashboardMetricCard";
 
 const Dashboard = () => {
   const accountsMap = useAppSelector(selectAccountsMap)
@@ -50,6 +50,7 @@ const Dashboard = () => {
       }
     }
     const account = accountsMap[selectedAccount]
+
     return {
       displayName: account?.name ?? "",
       displayBalance: account?.balance ?? 0,

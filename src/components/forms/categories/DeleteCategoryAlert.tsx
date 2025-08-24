@@ -1,4 +1,4 @@
-import {DeleteAlert} from "@/components/DeleteAlert/DeleteAlert"
+import DeleteAlert from "@/components/DeleteAlert"
 import {type CategoryId} from "@/store/categoriesSlice"
 
 interface DeleteCategoryAlertProps {

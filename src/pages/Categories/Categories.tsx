@@ -2,7 +2,7 @@ import FormDialog from "@/components/FormDialog";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
 import {selectExpenseCategories, selectIncomeCategories} from "@/store/categoriesSlice";
 import {useAppSelector} from "@/store/store";
-import CategoryCard from "@/components/CategoryCard/CategoryCard";
+import CategoryCard from "@/components/CategoryCard";
 import {AddCategoryForm} from "@/components/forms/categories";
 
 const Categories = () => {

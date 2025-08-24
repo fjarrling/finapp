@@ -19,7 +19,7 @@ interface DeleteAlertProps {
   triggerVariant?: "outline" | "ghost";
 }
 
-export const DeleteAlert = ({id, onDelete, entityName, triggerVariant = "outline"}: DeleteAlertProps) => {
+const DeleteAlert = ({id, onDelete, entityName, triggerVariant = "outline"}: DeleteAlertProps) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -48,3 +48,5 @@ export const DeleteAlert = ({id, onDelete, entityName, triggerVariant = "outline
     </AlertDialog>
   )
 }
+
+export default DeleteAlert
