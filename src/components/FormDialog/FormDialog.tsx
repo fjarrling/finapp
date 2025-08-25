@@ -30,7 +30,7 @@ function FormDialog({variant, size, title, triggerText, children, icon}: FormDia
         return null;
     }
   }
-  console.log(icon)
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
