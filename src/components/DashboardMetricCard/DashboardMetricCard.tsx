@@ -1,9 +1,6 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle
-} from "@/components/ui/card";
+import {Card, CardAction, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
+import {TrendingDown, TrendingUp} from "lucide-react";
+import {Badge} from "@/components/ui/badge.tsx";
 
 type MetricCardProps = {
   title: string;
@@ -16,24 +13,28 @@ type MetricCardProps = {
 const MetricCard = ({title, value, symbol, diff, type}: MetricCardProps) => {
 
   return (
-    <Card>
-      <CardHeader className='gap-y-0'>
+    <Card className="gap-y-0">
+      <CardHeader>
         <CardTitle className="text-sm text-muted-foreground font-normal">
           {title}
         </CardTitle>
-      </CardHeader>
-      <CardContent className='flex items-center justify-between'>
-        <div className='text-2xl font-semibold'>
+        <CardDescription className="text-2xl text-black font-semibold">
           {symbol}{value}
-        </div>
-        <div className={`${
-          (type === "expense" && diff > 0) || (type === "income" && diff < 0)
-            ? "text-red-600"
-            : "text-green-500"
-        }`}>
-          {diff}%
-        </div>
-      </CardContent>
+        </CardDescription>
+        <CardAction>
+          <Badge variant="outline"
+                 className={`${
+                   (type === "expense" && diff > 0) || (type === "income" && diff < 0)
+                     ? "text-red-600"
+                     : "text-green-500"
+                 }`}
+          >
+            {(diff > 0) && <TrendingUp/>}
+            {(diff < 0) && <TrendingDown/>}
+            {diff}%
+          </Badge>
+        </CardAction>
+      </CardHeader>
     </Card>
   );
 }

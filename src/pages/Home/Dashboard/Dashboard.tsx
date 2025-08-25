@@ -1,28 +1,18 @@
+import {useMemo, useState} from "react";
+import {useAppSelector} from "@/store/store";
+import {selectDashboardMetrics} from "@/store/transactionsSlice";
+import {getCurrencySymbol} from "@/config/currencies";
+import MetricCard from "@/components/DashboardMetricCard";
+import {type AccountId, selectAccountsMap, selectAllAccounts, selectTotalBalance} from "@/store/accountsSlice";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
-import {useAppSelector} from "@/store/store";
-import {
-  type AccountId,
-  selectAccountsMap,
-  selectAllAccounts,
-  selectTotalBalance
-} from "@/store/accountsSlice";
-import {useMemo, useState} from "react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle
-} from "@/components/ui/card";
+import {Card, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {ChevronDown} from "lucide-react";
-import {selectDashboardMetrics} from "@/store/transactionsSlice";
-import {getCurrencySymbol} from "@/config/currencies";
-import MetricCard from "@/components/DashboardMetricCard";
 
 const Dashboard = () => {
   const accountsMap = useAppSelector(selectAccountsMap)
@@ -67,7 +57,7 @@ const Dashboard = () => {
           </h2>
           <div className="w-full grid grid-cols-4 gap-6">
             <Card>
-              <CardHeader className='gap-y-0'>
+              <CardHeader>
                 <CardTitle className="text-sm font-normal">
                   <DropdownMenu>
                     <DropdownMenuTrigger className='flex items-center gap-2'>
@@ -90,12 +80,10 @@ const Dashboard = () => {
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <span className='text-2xl font-semibold'>
+                <CardDescription className="text-2xl text-black font-semibold">
                   {currencySymbol}{displayBalance}
-                </span>
-              </CardContent>
+                </CardDescription>
+              </CardHeader>
             </Card>
             {metricsData.map((metric) => (
               <MetricCard
