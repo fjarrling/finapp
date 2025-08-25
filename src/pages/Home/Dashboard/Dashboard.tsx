@@ -55,7 +55,7 @@ const Dashboard = () => {
           <h2 className='text-4xl mb-8'>
             Dashboard
           </h2>
-          <div className="w-full grid grid-cols-4 gap-6">
+          <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-6 ">
             <Card>
               <CardHeader>
                 <CardTitle className="text-sm font-normal">
