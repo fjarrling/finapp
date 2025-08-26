@@ -30,8 +30,8 @@ const TransactionsTable = ({
   }
 
   return (
-    <div className="min-h-[585.5px] w-full">
-      <Table className="mb-4">
+    <div className="min-h-[585.5px] w-full mb-4">
+      <Table>
         <TableHeader>
           <TableRow>
             <TableHead

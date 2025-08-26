@@ -11,8 +11,8 @@ const LastTransactions = () => {
   const lastTransactions = useAppSelector((selectLastNTransactions(5)))
 
   return (
-    <div className="p-6 rounded-xl border py-6">
-      <h3 className="text-xl  mb-8">Last transactions</h3>
+    <div className="rounded-xl border p-4 md:p-6">
+      <h3 className="text-xl mb-4 md:mb-8">Last transactions</h3>
       <div className="space-y-3">
         {
           lastTransactions.map((transaction) => {

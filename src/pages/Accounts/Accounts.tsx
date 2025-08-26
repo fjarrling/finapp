@@ -8,9 +8,9 @@ const Accounts = () => {
   const accounts = useAppSelector(selectAllAccounts)
   return (
     <div className='container'>
-      <div className='flex flex-col items-start py-8'>
-        <div className='w-full flex items-center justify-between mb-8'>
-          <h1 className="text-4xl">
+      <div className='py-4 md:py-8 flex flex-col'>
+        <div className='w-full flex flex-col md:flex-row items-start md:items-center justify-between mb-6 md:mb-8 gap-4'>
+          <h1 className="text-3xl md:text-4xl">
             My Accounts
           </h1>
           <FormDialog title="Add Account">
@@ -22,7 +22,7 @@ const Accounts = () => {
             You have not added accounts yet
           </div>}
         {accounts.length > 0 &&
-          <div className='w-full grid grid-cols-2 gap-4 mb-4 lg:grid-cols-3'>
+          <div className='w-full grid gap-4 mb-4  grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
             {
               accounts.map((account) => (
                 <AccountCard key={account.id} account={account}/>

@@ -10,16 +10,16 @@ const Categories = () => {
   const expenseCategories = useAppSelector(selectExpenseCategories)
   return (
     <div className='container'>
-      <div className='py-8 flex flex-col items-start'>
-        <div className='w-full flex items-center justify-between mb-8'>
-          <h1 className="text-4xl">
+      <div className='py-4 md:py-8 flex flex-col'>
+        <div className='w-full flex flex-col md:flex-row items-start md:items-center justify-between mb-6 md:mb-8 gap-4'>
+          <h1 className="text-3xl md:text-4xl">
             Categories
           </h1>
           <FormDialog title="Add Category">
             {(closeDialog) => <AddCategoryForm closeDialog={closeDialog}/>}
           </FormDialog>
         </div>
-        <Tabs defaultValue="income-categories" className="gap-8 w-full">
+        <Tabs defaultValue="income-categories" className="gap-4 md:gap-8 w-full">
           <TabsList className="w-full">
             <TabsTrigger value="income-categories">Income</TabsTrigger>
             <TabsTrigger value="expense-categories">Expense</TabsTrigger>

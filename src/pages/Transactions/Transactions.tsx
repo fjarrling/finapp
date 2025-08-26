@@ -96,9 +96,9 @@ const Transactions = () => {
 
   return (
     <div className='container'>
-      <div className='py-8 flex flex-col items-start'>
-        <div className='w-full flex items-center justify-between mb-4'>
-          <h1 className="text-4xl">Transactions</h1>
+      <div className='py-4 md:py-8 flex flex-col'>
+        <div className='w-full flex flex-col md:flex-row items-start md:items-center justify-between mb-6 md:mb-8 gap-4'>
+          <h1 className="text-3xl md:text-4xl">Transactions</h1>
           <FormDialog title="Add Transaction">
             {(closeDialog) => <AddTransactionForm closeDialog={closeDialog}/>}
           </FormDialog>
