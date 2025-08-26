@@ -6,12 +6,12 @@ interface DeleteCategoryAlertProps {
   onDelete: (id: CategoryId) => void
 }
 
-export const DeleteCategoryAlert = ({categoryId, onDelete}: DeleteCategoryAlertProps) => (
+const DeleteCategoryAlert = ({categoryId, onDelete}: DeleteCategoryAlertProps) => (
   <DeleteAlert
     id={categoryId}
     onDelete={onDelete}
     entityName="category"
-    triggerVariant="ghost"
+    triggerVariant="outline"
   />
 )
 

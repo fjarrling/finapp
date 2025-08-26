@@ -36,7 +36,7 @@ const CategoryCard = ({category}: CategoryCardProps) => {
           </Badge>
           <FormDialog
             title="Edit Category"
-            variant="ghost"
+            variant="outline"
             size="icon"
             icon="edit"
           >
