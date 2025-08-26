@@ -1,4 +1,4 @@
-import {useState, useMemo, useCallback} from "react"
+import {useState, useMemo, useCallback, useEffect} from "react"
 import FormDialog from "@/components/FormDialog";
 import {useAppDispatch, useAppSelector} from "@/store/store";
 import {selectAllTransactions, type Transaction, type TransactionId} from "@/store/transactionsSlice";
@@ -9,13 +9,16 @@ import {removeTransactionThunk} from "@/store/thunks/transactionThunks";
 import {useDebounceValue} from "@/hooks/useDebounceValue";
 import SearchBar from "@/components/SearchBar";
 import TransactionsTable from "@/components/TransactionsTable";
+import TablePagination from "@/components/TablePagination";
 
 const Transactions = () => {
   const dispatch = useAppDispatch();
-
   const transactions = useAppSelector(selectAllTransactions)
   const accountsMap = useAppSelector(selectAccountsMap)
   const categoriesMap = useAppSelector(selectCategoriesMap)
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const pageSize = 10
 
   const [searchQuery, setSearchQuery] = useState("")
   const debouncedSearchQuery = useDebounceValue(searchQuery, 300)
@@ -28,6 +31,14 @@ const Transactions = () => {
     direction: "asc",
   })
 
+  const handleSort = (key: keyof Transaction) => {
+    setSortConfig(prev =>
+      prev.key === key
+        ? {key, direction: prev.direction === "asc" ? "desc" : "asc"}
+        : {key, direction: "asc"}
+    )
+  }
+
   const filteredTransactions = useMemo(() => {
     if (!debouncedSearchQuery) return transactions
     return transactions.filter((t) =>
@@ -35,7 +46,6 @@ const Transactions = () => {
         .some(val => val?.toLowerCase().includes(debouncedSearchQuery.toLowerCase()))
     )
   }, [transactions, debouncedSearchQuery, accountsMap, categoriesMap])
-
 
   const filteredAndSortedTransactions = useMemo(() => {
     if (!sortConfig.key) return filteredTransactions
@@ -63,13 +73,19 @@ const Transactions = () => {
     })
   }, [filteredTransactions, sortConfig, accountsMap, categoriesMap])
 
-  const handleSort = (key: keyof Transaction) => {
-    setSortConfig(prev =>
-      prev.key === key
-        ? {key, direction: prev.direction === "asc" ? "desc" : "asc"}
-        : {key, direction: "asc"}
-    )
-  }
+  const totalPages = Math.ceil(filteredAndSortedTransactions.length / pageSize);
+
+  const paginatedTransactions = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    const end = start + pageSize;
+    return filteredAndSortedTransactions.slice(start, end);
+
+  }, [filteredAndSortedTransactions, currentPage])
+
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [debouncedSearchQuery, sortConfig]);
 
   const handleDeleteTransaction = useCallback(
     (transactionId: TransactionId) => {
@@ -93,17 +109,24 @@ const Transactions = () => {
             You have not added transactions yet
           </div>
         )}
-
-        {transactions.length > 0 && (
+        {transactions.length > 0 &&
           <TransactionsTable
             sortConfig={sortConfig}
             handleSort={handleSort}
             handleDeleteTransaction={handleDeleteTransaction}
-            transactions={filteredAndSortedTransactions}
+            transactions={paginatedTransactions}
             accountsMap={accountsMap}
             categoriesMap={categoriesMap}
           />
-        )}
+        }
+        {
+          totalPages > 1 &&
+          <TablePagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            changePage={setCurrentPage}
+          />
+        }
       </div>
     </div>
   );
