@@ -18,7 +18,7 @@ const Accounts = () => {
           </FormDialog>
         </div>
         {!accounts.length &&
-          <div className="w-full flex items-center justify-center py-16 text-2xl">
+          <div className="w-full flex items-center justify-center py-16 text-2xl text-center">
             You have not added accounts yet
           </div>}
         {accounts.length > 0 &&

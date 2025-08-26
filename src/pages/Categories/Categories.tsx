@@ -27,7 +27,7 @@ const Categories = () => {
           <TabsContent className="flex flex-col gap-2" value="income-categories">
             {
               !incomeCategories.length &&
-              <div className="w-full flex items-center justify-center py-16 text-2xl">
+              <div className="w-full flex items-center justify-center py-16 text-2xl text-center">
                 You have not added income categories yet
               </div>
             }
@@ -41,7 +41,7 @@ const Categories = () => {
           <TabsContent className="flex flex-col gap-2" value="expense-categories">
             {
               !expenseCategories.length &&
-              <div className="w-full flex items-center justify-center py-16 text-2xl">
+              <div className="w-full flex items-center justify-center py-16 text-2xl text-center">
                 You have not added expense categories yet
               </div>
             }
