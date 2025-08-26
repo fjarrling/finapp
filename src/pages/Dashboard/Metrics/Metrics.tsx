@@ -74,7 +74,7 @@ const Metrics = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           </CardTitle>
-          <CardDescription className="text-2xl text-black font-semibold">
+          <CardDescription className="text-2xl text-foreground font-semibold">
             {currencySymbol}{displayBalance}
           </CardDescription>
         </CardHeader>

@@ -18,7 +18,7 @@ const MetricCard = ({title, value, symbol, diff, type}: MetricCardProps) => {
         <CardTitle className="text-sm text-muted-foreground font-normal">
           {title}
         </CardTitle>
-        <CardDescription className="text-2xl text-black font-semibold">
+        <CardDescription className="text-2xl text-foreground font-semibold">
           {symbol}{value}
         </CardDescription>
         <CardAction>

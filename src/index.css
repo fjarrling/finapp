@@ -113,6 +113,10 @@
 }
 
 @layer base {
+  .theme-transition * {
+    transition: none !important;
+  }
+
   body {
     font-family: var(--font-family-base);
   }

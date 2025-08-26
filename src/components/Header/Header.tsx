@@ -1,26 +1,21 @@
 import {NavLink} from "react-router";
 import {
   NavigationMenu,
-  // NavigationMenuContent,
-  // NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  // NavigationMenuTrigger,
-  // NavigationMenuViewport,
 } from "@/components/ui/navigation-menu"
+import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 const Header = () => {
-
-
   return (
-    <header className='w-full shadow-md fixed bg-white z-10'>
+    <header className='w-full border-b fixed bg-background z-10'>
       <div className='container'>
-        <div className='flex items-center justify-between py-5'>
+        <div className='flex items-center py-5'>
           <NavLink  to='/'>
             Finapp
           </NavLink>
-          <NavigationMenu>
+          <NavigationMenu className="ml-auto mr-8">
             <NavigationMenuList className='flex items-center'>
               <NavigationMenuItem>
                 <NavigationMenuLink asChild={true}>
@@ -52,6 +47,7 @@ const Header = () => {
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
+          <ThemeSwitcher/>
         </div>
       </div>
     </header>
