@@ -1,5 +1,5 @@
 import type {RouteObject} from "react-router";
-import Home from "@/pages/Home";
+import Dashboard from "@/pages/Dashboard";
 import Accounts from "@/pages/Accounts";
 import Transactions from "@/pages/Transactions";
 import RootLayout from "@/Layouts/RootLayout/RootLayout";
@@ -13,7 +13,7 @@ const ROUTES: RouteObject[] = [
     children: [
       {
         index: true,
-        Component: Home,
+        Component: Dashboard,
       },
       {
         path: "/accounts",

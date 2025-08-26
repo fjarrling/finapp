@@ -14,7 +14,7 @@ import {
 import {Card, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {ChevronDown} from "lucide-react";
 
-const Dashboard = () => {
+const Metrics = () => {
   const accountsMap = useAppSelector(selectAccountsMap)
   const accounts = useAppSelector(selectAllAccounts)
   const totalBalance = useAppSelector(selectTotalBalance)
@@ -102,4 +102,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Metrics;

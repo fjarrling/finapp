@@ -20,7 +20,7 @@
 - данные сохраняются в `localStorage` с помощью `redux-persist`
 
 ### Router (`router.ts`)
-- `/` → `Home` (главная)
+- `/` → `Dashboard` (главная)
 - `/accounts` → `Accounts` (страница счетов)
 - `/categories` → `Categories` (категории)
 - `/transactions` → `Transactions` (транзакции)
