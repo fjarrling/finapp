@@ -97,27 +97,30 @@ const Transactions = () => {
   return (
     <div className='container'>
       <div className='py-4 md:py-8 flex flex-col'>
-        <div className='w-full flex flex-col md:flex-row items-start md:items-center justify-between mb-6 md:mb-8 gap-4'>
+        <div
+          className='w-full flex flex-col md:flex-row items-start md:items-center justify-between mb-6 md:mb-8 gap-4'>
           <h1 className="text-3xl md:text-4xl">Transactions</h1>
           <FormDialog title="Add Transaction">
             {(closeDialog) => <AddTransactionForm closeDialog={closeDialog}/>}
           </FormDialog>
         </div>
-        <SearchBar searchValue={searchQuery} setSearchValue={setSearchQuery}/>
         {!transactions.length && (
           <div className="w-full flex items-center justify-center py-16 text-2xl">
             You have not added transactions yet
           </div>
         )}
         {transactions.length > 0 &&
-          <TransactionsTable
-            sortConfig={sortConfig}
-            handleSort={handleSort}
-            handleDeleteTransaction={handleDeleteTransaction}
-            transactions={paginatedTransactions}
-            accountsMap={accountsMap}
-            categoriesMap={categoriesMap}
-          />
+          <>
+            <SearchBar searchValue={searchQuery} setSearchValue={setSearchQuery}/>
+            <TransactionsTable
+              sortConfig={sortConfig}
+              handleSort={handleSort}
+              handleDeleteTransaction={handleDeleteTransaction}
+              transactions={paginatedTransactions}
+              accountsMap={accountsMap}
+              categoriesMap={categoriesMap}
+            />
+          </>
         }
         {
           totalPages > 1 &&
