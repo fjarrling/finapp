@@ -13,7 +13,7 @@ type FormDialogProps = {
   children: (closeDialog: () => void) => ReactNode;
 };
 
-function FormDialog({variant, size, title, triggerText, children, icon}: FormDialogProps) {
+const FormDialog = ({variant, size, title, triggerText, children, icon}: FormDialogProps) => {
   const [open, setOpen] = useState(false);
 
   const closeDialog = () => setOpen(false);

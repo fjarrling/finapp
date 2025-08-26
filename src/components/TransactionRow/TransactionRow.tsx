@@ -1,11 +1,11 @@
-import {TableCell, TableRow} from "@/components/ui/table.tsx";
+import {TableCell, TableRow} from "@/components/ui/table";
 import {format} from "date-fns";
-import {getCurrencySymbol} from "@/config/currencies.ts";
+import {getCurrencySymbol} from "@/config/currencies";
 import FormDialog from "@/components/FormDialog";
 import {DeleteTransactionAlert, EditTransactionForm} from "@/components/forms/transactions";
-import type {Transaction, TransactionId} from "@/store/transactionsSlice.ts";
-import type {Account} from "@/store/accountsSlice.ts";
-import type {Category} from "@/store/categoriesSlice.ts";
+import type {Transaction, TransactionId} from "@/store/transactionsSlice";
+import type {Account} from "@/store/accountsSlice";
+import type {Category} from "@/store/categoriesSlice";
 import {memo} from "react";
 
 type TransactionRowProps = {
@@ -14,6 +14,7 @@ type TransactionRowProps = {
   category: Category;
   handleDeleteTransaction: (transactionId: TransactionId) => void;
 }
+
 const TransactionRow = memo(({
                                transaction,
                                category,
@@ -21,7 +22,7 @@ const TransactionRow = memo(({
                                handleDeleteTransaction
                              }: TransactionRowProps) => {
   return (
-    <TableRow key={transaction.id} className="border-b border-border hover:bg-muted/50">
+    <TableRow key={transaction.id}>
       <TableCell className="text-sm text-muted-foreground">
         {format(transaction.date, "PPP")}
       </TableCell>

@@ -1,3 +1,3 @@
-import ThemeSwitcher  from "./ThemeSwitcher.tsx";
+import ThemeSwitcher  from "./ThemeSwitcher";
 
 export default ThemeSwitcher;

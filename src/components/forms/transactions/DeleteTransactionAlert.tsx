@@ -6,7 +6,7 @@ interface DeleteTransactionAlertProps {
   onDelete: (id: TransactionId) => void
 }
 
-export const DeleteTransactionAlert = ({transactionId, onDelete}: DeleteTransactionAlertProps) => (
+const DeleteTransactionAlert = ({transactionId, onDelete}: DeleteTransactionAlertProps) => (
   <DeleteAlert
     id={transactionId}
     onDelete={onDelete}

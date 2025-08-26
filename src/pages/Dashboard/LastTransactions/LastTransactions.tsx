@@ -1,15 +1,14 @@
-import {useAppSelector} from "@/store/store.ts";
-import {selectLastNTransactions} from "@/store/transactionsSlice.ts";
+import {useAppSelector} from "@/store/store";
+import {selectLastNTransactions} from "@/store/transactionsSlice";
 import {format} from "date-fns";
-import {selectCategoriesMap} from "@/store/categoriesSlice.ts";
-import {selectAccountsMap} from "@/store/accountsSlice.ts";
-import {getCurrencySymbol} from "@/config/currencies.ts";
+import {selectCategoriesMap} from "@/store/categoriesSlice";
+import {selectAccountsMap} from "@/store/accountsSlice";
+import {getCurrencySymbol} from "@/config/currencies";
 
 const LastTransactions = () => {
   const categoriesMap = useAppSelector(selectCategoriesMap)
   const accountsMap = useAppSelector(selectAccountsMap)
   const lastTransactions = useAppSelector((selectLastNTransactions(5)))
-  console.log(lastTransactions)
 
   return (
     <div className="p-6 rounded-xl border py-6">

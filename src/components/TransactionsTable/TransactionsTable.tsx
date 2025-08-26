@@ -1,9 +1,9 @@
-import {Table, TableBody, TableHead, TableHeader, TableRow} from "@/components/ui/table.tsx";
+import {Table, TableBody, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import TransactionRow from "@/components/TransactionRow";
-import type {Transaction, TransactionId} from "@/store/transactionsSlice.ts";
+import type {Transaction, TransactionId} from "@/store/transactionsSlice";
 import {ChevronDown, ChevronUp} from "lucide-react";
-import type {Account, AccountId} from "@/store/accountsSlice.ts";
-import type {Category, CategoryId} from "@/store/categoriesSlice.ts";
+import type {Account, AccountId} from "@/store/accountsSlice";
+import type {Category, CategoryId} from "@/store/categoriesSlice";
 
 type TransactionsTableProps = {
   sortConfig: { key: keyof Transaction | null, direction: "asc" | "desc" };

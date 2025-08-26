@@ -1,6 +1,6 @@
 import {Card, CardAction, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {TrendingDown, TrendingUp} from "lucide-react";
-import {Badge} from "@/components/ui/badge.tsx";
+import {Badge} from "@/components/ui/badge";
 
 type MetricCardProps = {
   title: string;
