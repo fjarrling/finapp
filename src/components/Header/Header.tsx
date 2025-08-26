@@ -14,7 +14,7 @@ const Header = () => {
 
 
   return (
-    <header className='w-full shadow-md fixed bg-white'>
+    <header className='w-full shadow-md fixed bg-white z-10'>
       <div className='container'>
         <div className='flex items-center justify-between py-5'>
           <NavLink  to='/'>
