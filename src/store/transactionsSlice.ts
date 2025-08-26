@@ -66,6 +66,16 @@ export const selectAllTransactions = createSelector(
   (transactions) => Object.values(transactions)
 )
 
+export const selectLastNTransactions = (n: number) => createSelector(
+  selectAllTransactions,
+  (transactions) => {
+    if (!transactions) return [];
+    return [...transactions]
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+      .slice(0, n);
+  }
+);
+
 export const selectTransactionById = (id: string) =>
   (state: RootState): Transaction | undefined =>
     state.transactions.transactions[id];
