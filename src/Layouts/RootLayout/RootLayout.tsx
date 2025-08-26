@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import {Outlet} from "react-router";
 
 const RootLayout = () => {
@@ -8,6 +9,7 @@ const RootLayout = () => {
       <main className='pt-20 grow'>
         <Outlet/>
       </main>
+      <Footer/>
     </>
   );
 };
