@@ -106,18 +106,15 @@ export const updateTransactionThunk = createAsyncThunk<
   const category = selectCategoryById(newCategoryId)(state);
   if (!category) return rejectWithValue(`Category ${newCategoryId} not found`);
 
-  // 1. Откатываем старое
   const prevCategory = selectCategoryById(prevTransaction.categoryId)(state);
   if (!prevCategory) return rejectWithValue("Old category not found");
 
   const oldDelta = calcBalanceDelta(prevTransaction.amount, prevCategory.type);
   dispatch(changeBalance({id: prevTransaction.accountId, delta: -oldDelta}));
 
-  // 2. Обновляем транзакцию
   const updatedTransaction: Transaction = {...prevTransaction, ...payload, amount: newAmount};
   dispatch(updateTransaction(updatedTransaction));
 
-  // 3. Применяем новое изменение
   const newDelta = calcBalanceDelta(newAmount, category.type);
 
   dispatch(changeBalance({id: newAccountId, delta: newDelta}));
