@@ -5,7 +5,7 @@ import {CATEGORY_TYPES} from "@/store/categoriesSlice";
 import {CATEGORY_COLORS, getColorLabel} from "@/config/categoryColors";
 import {Button} from "@/components/ui/button";
 import type {UseFormReturn} from "react-hook-form";
-import type {CategoryFormData} from "@/types/categories";
+import type {CategoryFormData} from "@/validation/categories";
 
 type CategoryFormProps = {
   form: UseFormReturn<CategoryFormData>

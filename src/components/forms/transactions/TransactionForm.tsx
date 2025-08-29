@@ -18,7 +18,7 @@ import {Calendar} from "@/components/ui/calendar";
 import {useAppSelector} from "@/store/store";
 import {selectAllAccounts} from "@/store/accountsSlice";
 import {selectExpenseCategories, selectIncomeCategories} from "@/store/categoriesSlice";
-import type {TransactionFormData} from "@/types/transactions";
+import type {TransactionFormData} from "@/validation/transactions";
 import type {UseFormReturn} from "react-hook-form";
 
 type TransactionFormProps = {

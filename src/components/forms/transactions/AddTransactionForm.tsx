@@ -1,6 +1,6 @@
 import {zodResolver} from "@hookform/resolvers/zod"
 import {useForm} from "react-hook-form"
-import {type TransactionFormData, transactionFormSchema} from "@/types/transactions";
+import {type TransactionFormData, transactionFormSchema} from "@/validation/transactions";
 import {selectCategoriesMap,} from "@/store/categoriesSlice";
 import {useAppDispatch, useAppSelector} from "@/store/store";
 import {addTransactionThunk} from "@/store/thunks/transactionThunks";

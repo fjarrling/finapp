@@ -4,7 +4,7 @@ import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/c
 import {CURRENCIES, CURRENCY_CONFIG} from "@/config/currencies";
 import {Button} from "@/components/ui/button";
 import type {UseFormReturn} from "react-hook-form";
-import type {AccountFormData} from "@/types/accounts";
+import type {AccountFormData} from "@/validation/accounts";
 import type {ReactNode} from "react";
 
 type AccountFormProps = {

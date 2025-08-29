@@ -1,7 +1,7 @@
 import {zodResolver} from "@hookform/resolvers/zod"
 import {useForm} from "react-hook-form"
 import {useAppDispatch} from "@/store/store";
-import {type CategoryFormData, categoryFormSchema} from "@/types/categories";
+import {type CategoryFormData, categoryFormSchema} from "@/validation/categories";
 import {updateCategory, type Category} from "@/store/categoriesSlice";
 import {CategoryForm} from "./";
 

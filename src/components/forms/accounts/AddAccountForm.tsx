@@ -2,7 +2,7 @@ import {zodResolver} from "@hookform/resolvers/zod"
 import {useForm} from "react-hook-form"
 import {type Account, addAccount} from "@/store/accountsSlice"
 import {useAppDispatch} from "@/store/store";
-import {accountFormSchema, type AccountFormData} from "@/types/accounts"
+import {accountFormSchema, type AccountFormData} from "@/validation/accounts"
 import {nanoid} from "@reduxjs/toolkit";
 import {AccountForm} from "./";
 

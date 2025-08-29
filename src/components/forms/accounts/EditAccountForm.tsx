@@ -2,7 +2,7 @@ import {zodResolver} from "@hookform/resolvers/zod"
 import {useForm} from "react-hook-form"
 import {updateAccount, removeAccount, type Account, type AccountId} from "@/store/accountsSlice"
 import {useAppDispatch} from "@/store/store";
-import {accountFormSchema, type AccountFormData} from "@/types/accounts"
+import {accountFormSchema, type AccountFormData} from "@/validation/accounts"
 import {DeleteAccountAlert} from "@/components/forms/accounts";
 import {AccountForm} from "./";
 
